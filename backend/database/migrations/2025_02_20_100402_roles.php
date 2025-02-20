@@ -11,19 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id(); // ID tự động tăng
             $table->string('name');
-            $table->string('phone')->unique();
-            $table->string('role_id');
-            $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        //
     }
 };
