@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
             WardSeeder::class,
             RoleSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            HouseSeeder::class
         ]);
     }
 }

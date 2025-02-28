@@ -13,18 +13,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->text('description')->nullable();
-            $table->integer('rooms');
-            $table->boolean('is_available')->default(true); // Trạng thái có sẵn hay không
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('ward_id');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->foreign('ward_id')->references('id')->on('wards')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        //
+        Schema::dropIfExists('houses'); 
     }
 };

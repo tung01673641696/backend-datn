@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Ward extends Model
 {
     use HasFactory;
+
+    public function district() {
+        return $this->belongsTo(District::class);
+    }
+
+    public function houses() {
+        return $this->hasMany(House::class);
+    }
 }
