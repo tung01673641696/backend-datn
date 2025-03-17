@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             WardSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            HouseSeeder::class
+            HouseSeeder::class,
+            RoomSeeder::class
         ]);
     }
 }

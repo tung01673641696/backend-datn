@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('house_id');
-            $table->string('room_number'); // Số phòng
-            $table->string('floor'); //tầng
-            $table->decimal('price', 10, 2); // Giá thuê phòng
+            $table->enum('room_type', ['homestay','trọ thường','chung cư mini']);
+            $table->string('room_number'); // Số tên phòng
+            $table->string('floor');
+            $table->decimal('price', 10, 2);
             $table->decimal('price_deposit', 10 , 2);
-            $table->integer('area'); // Diện tích phòng (m²)
+            $table->integer('area');
             $table->integer('user_number');
-            $table->string('image');
-            $table->string('description');
+            $table->json('image');
+            $table->string('description')->nullable();
             $table->boolean('is_available')->default(true); // Trạng thái có sẵn hay không
             $table->timestamps();
         });
