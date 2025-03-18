@@ -12,7 +12,7 @@ class UserController extends Controller
     public function register(Request $request) {
         $exists = User::where('phone', $request->phone)->exists();
         if($exists) {
-            return response()->json(['message' => 'Số điện thoại đã tồn tại'], 422);
+            return response()->json(['message' => 'Số điện thoại đã tồn tại', 'code' => 422]);
         }
 
         $user = User::create([
