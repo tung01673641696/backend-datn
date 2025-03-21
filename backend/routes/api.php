@@ -24,4 +24,5 @@ Route::prefix('house-manager')->group(function(){
     Route::get('/count-house', [HouseController::class, 'countHouseByOwner']);
     Route::get('/show-house/user/{userId}', [HouseController::class, 'getHouseByOwner']);
     Route::post('/add-house', [HouseController::class, 'addHouse']);
+    Route::put('/edit-house/{id}', [HouseController::class, 'editHouse']);
 });

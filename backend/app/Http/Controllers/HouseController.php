@@ -29,4 +29,16 @@ class HouseController extends Controller
 
         return response()->json(['message' => 'Thêm nhà thành công', 'house' => $house], 200);
     }
+
+    public function editHouse(Request $request, $id) {
+        $house = House::find($id);
+        $house->update([
+            'name' => $request->name,
+            'address'=> $request-> address,
+            'user_id' => $request-> user_id,
+            'district_id' => $request->district_id,
+            'ward_id' => $request-> ward_id,
+        ]);
+        return reponse()->json(['message'=> "Cập nhật nhà thành công", 'house'=>$house]);
+    }
 }
