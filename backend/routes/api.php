@@ -22,10 +22,11 @@ Route::prefix('/ward')->group(function() {
 });
 
 Route::prefix('/house-manager')->group(function(){
-    Route::get('/count-house', [HouseController::class, 'countHouseByOwner']);
+    Route::get('/count-house/user/{userId}', [HouseController::class, 'countHouseByOwner']);
     Route::get('/show-house/user/{userId}', [HouseController::class, 'getHouseByOwner']);
     Route::post('/add-house', [HouseController::class, 'addHouse']);
     Route::put('/edit-house/{id}', [HouseController::class, 'editHouse']);
+    Route::delete('/delete-house/house_id/{houseId}', [HouseController::class, 'deleteHouse']);
     Route::get('/get-one-house/{houseId}', [HouseController::class, 'getOneHouse']);
 });
 

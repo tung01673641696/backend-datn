@@ -9,7 +9,6 @@ class RoomController extends Controller
 {
     public function getRoomByHouse($houseId) {
         $rooms = Room::where('house_id', $houseId)->get();
-        dd($rooms);
         return $rooms;
     }
 }

@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 use App\Models\House;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HouseController extends Controller
 {
-    public function countHouseByOwner() {
-        $user = auth()->user();
-        dd($user);
-        $houseCount = $user->houses()->count();
+    public function countHouseByOwner($userId) {
+        $landlord = User::where('id', $userId)->where('role_id', 2)->first();
+        
+        if (!$landlord) {
+            return response()->json(['message' => 'Chủ nhà không tồn tại'], 404);
+        }
+        $houseCount = House::where('user_id', $userId)->count();
+
+        return response()->json(['house_count' => $houseCount]);
     }
 
     public function getHouseByOwner($userId) {
@@ -52,4 +57,15 @@ class HouseController extends Controller
     //     ]);
     //     return reponse()->json(['message'=> "Cập nhật nhà thành công", 'house'=>$house]);
     // }
+
+    public function deleteHouse($houseId) {
+        $house = House::where('id', $houseId)->first();
+
+        if(!$house) {
+            return response()->json(['message' => 'Không tìm thấy nhà'], 404);
+        }
+
+        $house->delete();
+        return response()->json(['message' => 'Xóa nhà thành công'], 200);
+    }
 }
