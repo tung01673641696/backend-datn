@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->unsignedBigInteger('house_id');
             $table->unsignedBigInteger('room_id');
             $table->timestamps();
-            $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }

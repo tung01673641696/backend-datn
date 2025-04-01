@@ -36,7 +36,8 @@ class HouseController extends Controller
     }
 
     public function getOneHouse($houseId) {
-        $house = House::where('id', $houseId)->first();
+        // $house = House::where('id', $houseId)->first();
+        $house = House::with(['district','ward'])->find($houseId);
 
         if(!$house) {
             return response()->json(['message' => 'Không tìm thấy nhà'], 404);
@@ -45,18 +46,21 @@ class HouseController extends Controller
 
     }
 
-    // public function editHouse(Request $request, $id) {
-    //     $house = House::find($id);
-    //     dd($house);
-    //     $house->update([
-    //         'name' => $request->name,
-    //         'address'=> $request-> address,
-    //         'user_id' => $request-> user_id,
-    //         'district_id' => $request->district_id,
-    //         'ward_id' => $request-> ward_id,
-    //     ]);
-    //     return reponse()->json(['message'=> "Cập nhật nhà thành công", 'house'=>$house]);
-    // }
+    public function editHouse(Request $request, $houseId) {
+        $house = House::find($houseId);
+
+        if (!$house) {
+            return response()->json(['message' => 'Không tìm thấy nhà'], 404);
+        }
+
+        $house->update([
+            'name' => $request->name,
+            'address'=> $request-> address,
+            'district_id' => $request->district_id,
+            'ward_id' => $request-> ward_id,
+        ]);
+        return response()->json(['message'=> "Cập nhật nhà thành công", 'house'=>$house]);
+    }
 
     public function deleteHouse($houseId) {
         $house = House::where('id', $houseId)->first();
