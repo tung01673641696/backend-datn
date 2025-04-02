@@ -33,4 +33,6 @@ Route::prefix('/house-manager')->group(function(){
 Route::prefix('/room-manager')->group(function(){
     Route::get('/show-room/house_id/{houseId}', [RoomController::class, 'getRoomByHouse']);
     Route::post('/add-room', [RoomController::class, 'addRoom']);
+
+    Route::delete('/delete-room/room_id/{roomId}', [RoomController::class, 'deleteRoom']);
 });

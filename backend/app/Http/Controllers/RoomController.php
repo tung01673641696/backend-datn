@@ -39,4 +39,13 @@ class RoomController extends Controller
 
         return response()->json(['message' => 'Thêm phòng thành công', 'room' => $room], 200);
     }
+
+    public function deleteRoom($roomId) {
+        $room = Room::where('id', $roomId)->first();
+        if(!$room) {
+            return response()->json(['message' => 'Không tìm thấy phòng'], 404);
+        }
+        $room->delete();
+        return response()->json(['message' => 'Xóa phòng thành công'], 200);
+    }
 }
