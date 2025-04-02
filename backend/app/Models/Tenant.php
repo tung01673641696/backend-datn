@@ -10,5 +10,9 @@ class Tenant extends Model
     use HasFactory;
     protected $fillable = ['name','phone','room_id'];
 
-    
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
 }

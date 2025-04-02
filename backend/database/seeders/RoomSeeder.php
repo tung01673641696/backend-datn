@@ -16,7 +16,7 @@ class RoomSeeder extends Seeder
         DB::table('rooms')->insert([
             [
                 'house_id'=> '1',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '101',
                 'floor' => '1',
                 'price' => '3000000',
@@ -34,7 +34,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '1',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '102',
                 'floor' => '1',
                 'price' => '3000000',
@@ -52,7 +52,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '1',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '201',
                 'floor' => '2',
                 'price' => '3000000',
@@ -70,7 +70,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '1',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '202',
                 'floor' => '2',
                 'price' => '3000000',
@@ -88,7 +88,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '5',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '101',
                 'floor' => '1',
                 'price' => '3500000',
@@ -106,7 +106,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '5',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '102',
                 'floor' => '1',
                 'price' => '3500000',
@@ -124,7 +124,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '5',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '201',
                 'floor' => '2',
                 'price' => '3500000',
@@ -142,7 +142,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '5',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '202',
                 'floor' => '2',
                 'price' => '3500000',
@@ -160,7 +160,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '10',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '101',
                 'floor' => '1',
                 'price' => '3200000',
@@ -178,7 +178,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '10',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '102',
                 'floor' => '1',
                 'price' => '3200000',
@@ -196,7 +196,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '10',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '201',
                 'floor' => '2',
                 'price' => '3200000',
@@ -214,7 +214,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '10',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '202',
                 'floor' => '2',
                 'price' => '3200000',
@@ -232,7 +232,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '13',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '101',
                 'floor' => '1',
                 'price' => '3600000',
@@ -250,7 +250,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '13',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '102',
                 'floor' => '1',
                 'price' => '3500000',
@@ -268,7 +268,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '13',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '201',
                 'floor' => '2',
                 'price' => '2500000',
@@ -286,7 +286,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '13',
-                'room_type'=> 'tro_thuong',
+                'room_type'=> 'trọ thường',
                 'name' => '202',
                 'floor' => '2',
                 'price' => '2500000',
@@ -304,7 +304,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '16',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '101',
                 'floor' => '1',
                 'price' => '4200000',
@@ -322,7 +322,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '16',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '102',
                 'floor' => '1',
                 'price' => '4000000',
@@ -340,7 +340,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '16',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '201',
                 'floor' => '2',
                 'price' => '4500000',
@@ -358,7 +358,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '16',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '202',
                 'floor' => '2',
                 'price' => '4200000',
@@ -376,7 +376,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '19',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '101',
                 'floor' => '1',
                 'price' => '5000000',
@@ -394,7 +394,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '19',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '102',
                 'floor' => '1',
                 'price' => '5000000',
@@ -412,7 +412,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '19',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '201',
                 'floor' => '2',
                 'price' => '5000000',
@@ -430,7 +430,7 @@ class RoomSeeder extends Seeder
             ],
             [
                 'house_id'=> '19',
-                'room_type'=> 'chung_cu_mini',
+                'room_type'=> 'chung cư mini',
                 'name' => '202',
                 'floor' => '2',
                 'price' => '4500000',

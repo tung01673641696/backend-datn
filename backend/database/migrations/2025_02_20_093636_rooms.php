@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('house_id');
-            $table->enum('room_type', ['homestay','tro_thuong','chung_cu_mini']);
-            $table->string('name');
-            $table->string('floor');
+            $table->enum('room_type', ['homestay','trọ thường','chung cư mini']);
+            $table->unsignedInteger('name');
+            $table->unsignedInteger('floor');
             $table->decimal('price', 10, 2);
             $table->decimal('price_deposit', 10 , 2);
-            $table->integer('area');
-            $table->integer('user_number');
+            $table->unsignedInteger('area');
+            $table->unsignedInteger('user_number');
             $table->json('image');
             $table->string('description')->nullable();
-            $table->boolean('is_available')->default(true); // Trạng thái có sẵn hay không
+            $table->boolean('is_available')->default(true);
             $table->timestamps();
 
             $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
