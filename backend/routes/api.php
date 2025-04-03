@@ -41,4 +41,5 @@ Route::prefix('/room-manager')->group(function(){
 Route::prefix('/tenant-manager')->group(function() {
     Route::post('/add-tenant', [TenantController::class, 'addTenant']);
     Route::get('/get-all-tenant', [TenantController::class, 'getAllTenant']);
+    Route::delete('/delete-tenant/tenant_id/{tenantId}', [TenantController::class, 'deleteTenant']);
 });

@@ -32,4 +32,14 @@ class TenantController extends Controller
     
         return response()->json($tenants);
     }
+
+    public function deleteTenant($tenantId) {
+        $tenant = Tenant::where('id', $tenantId)->first();
+
+        if(!$tenant) {
+            return response()->json(['message'=>'Không tìm thấy khách thuê'], 201);
+        }
+        $tenant->delete();
+        return response()->json(['message'=>'Xóa khách thuê thành công'], 200);
+    }
 }
