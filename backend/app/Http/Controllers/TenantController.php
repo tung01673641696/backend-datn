@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TenantController extends Controller
 {
@@ -15,5 +16,20 @@ class TenantController extends Controller
         ]);
 
         return response()->json(['message' => 'Thêm khách thuê thành công', 'tenant' => $tenant], 200);
+    }
+
+    public function getAllTenant(Request $request) {
+        $tenants = Tenant::with(['room', 'room.house'])
+            ->get()
+            ->map(function ($tenant, $index) {
+                return [
+                    'index' => $index + 1,
+                    'tenant' => $tenant,
+                    'house_name' => $tenant->room->house->name,
+                    'room_name' => $tenant->room->name,
+                ];
+            });
+    
+        return response()->json($tenants);
     }
 }

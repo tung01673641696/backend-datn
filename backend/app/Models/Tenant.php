@@ -15,4 +15,8 @@ class Tenant extends Model
         return $this->belongsTo(Room::class);
     }
 
+    public function house()
+    {
+        return $this->belongsToThrough(House::class, Room::class);
+    }
 }
