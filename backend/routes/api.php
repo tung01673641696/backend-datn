@@ -7,6 +7,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\WardController;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\TenantController;
 
 Route::prefix('/user')->group(function() {
     Route::post('/register', [UserController::class, 'register']);
@@ -33,6 +34,10 @@ Route::prefix('/house-manager')->group(function(){
 Route::prefix('/room-manager')->group(function(){
     Route::get('/show-room/house_id/{houseId}', [RoomController::class, 'getRoomByHouse']);
     Route::post('/add-room', [RoomController::class, 'addRoom']);
-
+    Route::get('/get-one-room/room_id/{roomId}', [RoomController::class, 'getOneRoom']);
     Route::delete('/delete-room/room_id/{roomId}', [RoomController::class, 'deleteRoom']);
+});
+
+Route::prefix('/tenant-manager')->group(function() {
+    Route::post('/add-tenant', [TenantController::class, 'addTenant']);
 });

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->unsignedBigInteger('room_id');
+            $table->string('note')->nullable();
             $table->timestamps();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tenants');
     }
 };
