@@ -59,7 +59,7 @@ class HouseController extends Controller
             'district_id' => $request->district_id,
             'ward_id' => $request-> ward_id,
         ]);
-        return response()->json(['message'=> "Cập nhật nhà thành công", 'house'=>$house]);
+        return response()->json(['message'=> "Cập nhật nhà thành công", 'house'=>$house], 200);
     }
 
     public function deleteHouse($houseId) {
