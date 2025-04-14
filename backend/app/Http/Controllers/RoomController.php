@@ -48,6 +48,30 @@ class RoomController extends Controller
         return response()->json($room, 200);
     }
 
+    public function editRoom(Request $request, $roomId) {
+        $room = Room::find($roomId);
+
+        if(!$room) {
+            return response()->json(['message'=>'Không tìm thấy phòng'], 404);
+        }
+
+        $room->update([
+            'house_id' => $request-> house_id,
+            'room_type' => $request-> room_type,
+            'name'=> $request-> name,
+            'floor'=> $request-> floor,
+            'price'=> $request-> price,
+            'price_deposit'=> $request-> price_deposit,
+            'area'=> $request-> area,
+            'user_number'=> $request-> user_number,
+            'image' => is_string($request->image) ? $request->image : json_encode($request->image),
+            'description'=> $request-> description,
+            'is_available'=> $request-> is_available
+        ]);
+
+        return response()->json(['message'=>'Cập nhật phòng thành công', 'room'=>$room], 200);
+    }
+
     public function deleteRoom($roomId) {
         $room = Room::where('id', $roomId)->first();
         if(!$room) {
