@@ -8,6 +8,7 @@ use App\Http\Controllers\WardController;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\VehicleController;
 
 Route::prefix('/user')->group(function() {
     Route::post('/register', [UserController::class, 'register']);
@@ -45,4 +46,13 @@ Route::prefix('/tenant-manager')->group(function() {
     Route::get('/get-one-tenant/tenant_id/{tenantId}', [TenantController::class, 'getOneTenant']);
     Route::put('/edit-tenant/{tenantId}', [TenantController::class, 'editTenant']);
     Route::delete('/delete-tenant/tenant_id/{tenantId}', [TenantController::class, 'deleteTenant']);
+    Route::get('/get-tenant-by-room/room_id/{roomId}', [TenantController::class, 'getTenantByRoom']);
+}); 
+
+Route::prefix('/vehicle-manager')->group(function() {
+    Route::post('/add-vehicle', [VehicleController::class, 'addVehicle']);
+    Route::get('/get-all-vehicle', [VehicleController::class, 'getAllVehicle']);
+    Route::delete('/delete-vehicle/vehicle_id/{vehicleId}', [VehicleController::class, 'deleteVehicle']);
+    Route::get('/get-one-vehicle/vehicle_id/{vehicleId}', [VehicleController::class, 'getOneVehicle']);
+    Route::put('/edit-vehicle/{vehicleId}', [VehicleController::class, 'editVehicle']);
 }); 

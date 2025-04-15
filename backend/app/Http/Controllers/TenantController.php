@@ -25,7 +25,9 @@ class TenantController extends Controller
                 return [
                     'index' => $index + 1,
                     'tenant' => $tenant,
+                    'house_id' => $tenant->room->house->id, 
                     'house_name' => $tenant->room->house->name,
+                    'room_id' => $tenant->room->id,
                     'room_name' => $tenant->room->name,
                 ];
             });
@@ -67,5 +69,10 @@ class TenantController extends Controller
         ]);
 
         return response()->json(['message'=>'Cập nhật thông tin khách thuê thành công'], 200);
+    }
+
+    public function getTenantByRoom($roomId) {
+        $tenant = Tenant::where('room_id', $roomId)->get();
+        return $tenant;
     }
 }
