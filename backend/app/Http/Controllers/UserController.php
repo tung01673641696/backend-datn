@@ -45,4 +45,30 @@ class UserController extends Controller
             'token' => $token
         ]);
     }
+
+    public function getAllUser() {
+        $users = User::with('role')
+        ->select('id', 'name', 'phone', 'role_id', 'created_at')
+        ->orderBy('created_at','desc')
+        ->get()->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'phone' => $user->phone,
+                'role' => $user->role->name,
+                'created_at' => $user->created_at->format('H:i d/m/Y')
+            ];
+        });
+        return response()->json($users);
+    }
+
+    public function deleteUser($userId) {
+        $user = User::where('id', $userId)->first();
+
+        if(!$user) {
+            return response()->json(['message'=>'Không tìm thấy người dùng'], 201);
+        }
+        $user->delete();
+        return response()->json(['message'=>'Xóa người dùng thành công'], 200);
+    }
 }

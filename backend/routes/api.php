@@ -14,6 +14,8 @@ use App\Http\Controllers\PostController;
 Route::prefix('/user')->group(function() {
     Route::post('/register', [UserController::class, 'register']);
     Route::post('/login', [UserController::class, 'login']);
+    Route::get('/get-all-user', [UserController::class, 'getAllUser']);
+    Route::delete('/delete-user/user_id/{userId}', [UserController::class, 'deleteUser']);
 });
 
 Route::prefix('/district')->group(function() {
