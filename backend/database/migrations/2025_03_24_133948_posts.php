@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('house_id')->nullable();
             $table->unsignedBigInteger('room_id')->nullable();
             $table->unsignedBigInteger('district_id');
-            $table->unsignedBigInteger('ward_id');
-            $table->enum('room_type', ['homestay','tro_thuong','chung_cu_mini']);
-            $table->integer('area');
+            $table->unsignedBigInteger('ward_id')->nullable();
+            $table->enum('room_type', ['homestay','trọ thường','chung cư mini']);
+            $table->integer('area')->nullable();
             $table->integer('floor')->nullable();
             $table->integer('max_people');
             $table->decimal('price', 10, 2);

@@ -9,6 +9,7 @@ use App\Http\Controllers\HouseController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\PostController;
 
 Route::prefix('/user')->group(function() {
     Route::post('/register', [UserController::class, 'register']);
@@ -55,4 +56,8 @@ Route::prefix('/vehicle-manager')->group(function() {
     Route::delete('/delete-vehicle/vehicle_id/{vehicleId}', [VehicleController::class, 'deleteVehicle']);
     Route::get('/get-one-vehicle/vehicle_id/{vehicleId}', [VehicleController::class, 'getOneVehicle']);
     Route::put('/edit-vehicle/{vehicleId}', [VehicleController::class, 'editVehicle']);
-}); 
+});
+
+Route::prefix('/posts')->group(function() {
+    Route::post('add-posts-by-customer', [PostController::class, 'addPostsByCustomer']);
+});

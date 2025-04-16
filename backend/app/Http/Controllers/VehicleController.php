@@ -25,7 +25,9 @@ class VehicleController extends Controller
                 'license_plate' => $vehicle->license_plate,
                 'description' => $vehicle->description,
                 'tenant_name' => $vehicle->tenant->name,
+                'room_id' => $vehicle->tenant->room->id,
                 'room_name' => $vehicle->tenant->room->name,
+                'house_id' => $vehicle->tenant->room->house->id,
                 'house_name' => $vehicle->tenant->room->house->name,
             ];
         });
