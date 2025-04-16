@@ -61,5 +61,6 @@ Route::prefix('/vehicle-manager')->group(function() {
 });
 
 Route::prefix('/posts')->group(function() {
-    Route::post('add-posts-by-customer', [PostController::class, 'addPostsByCustomer']);
+    Route::post('/add-posts-by-customer', [PostController::class, 'addPostsByCustomer']);
+    Route::post('/add-posts-by-landlord', [PostController::class, 'addPostByLandlord']);
 });

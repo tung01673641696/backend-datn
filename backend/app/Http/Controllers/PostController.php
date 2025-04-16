@@ -20,4 +20,19 @@ class PostController extends Controller
 
         return response()->json(['message' => 'Thêm bài đăng thành công', 'posts' => $posts], 200);
     }
+
+    public function addPostByLandlord(Request $request) {
+        $exist = Post::where('room_id', $request->room_id)->first();
+        if($exist) {
+            return response()->json(['error' => 'Phòng này đã đăng rồi'], 201);
+        }
+
+        $posts = Post::create([
+            'title' => $request -> title,
+            'room_id' => $request -> room_id,
+            'user_id' => $request -> user_id
+        ]);
+
+        return response()->json(['message' => 'Thêm bài đăng thành công', 'posts' => $posts], 200);
+    }
 }

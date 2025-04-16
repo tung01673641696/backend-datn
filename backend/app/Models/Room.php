@@ -17,4 +17,7 @@ class Room extends Model
     public function tenants() {
         return $this->hasMany(Tenant::class);
     }
+    public function post(){
+        return $this->hasOne(Post::class, 'room_id');
+    }
 }
