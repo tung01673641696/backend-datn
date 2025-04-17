@@ -17,4 +17,11 @@ class Post extends Model
     public function room(){
         return $this->belongsTo(Room::class, 'room_id');
     }
+    public function district(){
+        return $this->belongsTo(District::class, 'district_id');
+    }
+
+    public function ward(){
+        return $this->belongsTo(Ward::class);
+    }
 }

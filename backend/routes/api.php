@@ -62,5 +62,9 @@ Route::prefix('/vehicle-manager')->group(function() {
 
 Route::prefix('/posts')->group(function() {
     Route::post('/add-posts-by-customer', [PostController::class, 'addPostsByCustomer']);
+    Route::get('/get-one-posts-by-customer/posts_id/{postId}', [PostController::class, 'getOnePostsByCustomer']);
+    Route::put('/edit-posts-by-customer/posts_id/{postId}', [PostController::class, 'editPostsByCustomer']);
+
     Route::post('/add-posts-by-landlord', [PostController::class, 'addPostByLandlord']);
+    Route::get('/get-posts-by-one-customer/customer_id/{customerId}', [PostController::class, 'getPostsByOneCustomer']);
 });

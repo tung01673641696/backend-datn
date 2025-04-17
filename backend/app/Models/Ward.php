@@ -18,4 +18,8 @@ class Ward extends Model
     public function houses() {
         return $this->hasMany(House::class);
     }
+
+    public function post(){
+        return $this->hasOne(Post::class);
+    }
 }
