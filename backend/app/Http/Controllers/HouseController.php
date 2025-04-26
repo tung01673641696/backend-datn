@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class HouseController extends Controller
 {
-    public function countHouseByOwner($userId) {
+    public function hostCountHouse($userId) {
         $landlord = User::where('id', $userId)->where('role_id', 2)->first();
         
         if (!$landlord) {
@@ -18,12 +18,21 @@ class HouseController extends Controller
         return response()->json(['house_count' => $houseCount]);
     }
 
-    public function getHouseByOwner($userId) {
+    //tất cả nhà của chủ nhà
+    public function getHouseHost($userId) {
         $houses = House::where('user_id', $userId)->with(['district', 'ward'])->get();
         return $houses;
     }
 
     public function addHouse(Request $request) {
+        $exists = House::where('user_id', $request->user_id)
+        ->where('name', $request->name)
+        ->exists();
+
+        if ($exists) {
+            return response()->json(['error' => 'Nhà đã tồn tại'], 201);
+        }
+
         $house = House::create([
         'name' => $request->name,
         'address'=> $request-> address,
@@ -35,8 +44,7 @@ class HouseController extends Controller
         return response()->json(['message' => 'Thêm nhà thành công', 'house' => $house], 200);
     }
 
-    public function getOneHouse($houseId) {
-        // $house = House::where('id', $houseId)->first();
+    public function showHouse($houseId) {
         $house = House::with(['district','ward'])->find($houseId);
 
         if(!$house) {
@@ -46,11 +54,20 @@ class HouseController extends Controller
 
     }
 
-    public function editHouse(Request $request, $houseId) {
+    public function updateHouse(Request $request, $houseId) {
         $house = House::find($houseId);
 
         if (!$house) {
             return response()->json(['message' => 'Không tìm thấy nhà'], 404);
+        }
+
+        $exists = House::where('user_id', $house->user_id)
+        ->where('name', $request->name)
+        ->where('id', '!=', $houseId)
+        ->exists();
+
+        if ($exists) {
+            return response()->json(['error' => 'Tên nhà đã tồn tại, vui lòng chọn tên khác'], 201);
         }
 
         $house->update([

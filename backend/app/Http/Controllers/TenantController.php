@@ -45,7 +45,7 @@ class TenantController extends Controller
         return response()->json(['message'=>'Xóa khách thuê thành công'], 200);
     }
 
-    public function getOneTenant($tenantId) {
+    public function showTenant($tenantId) {
         $tenant = Tenant::with(['room.house'])->find($tenantId);
 
         if(!$tenant) {
@@ -54,7 +54,7 @@ class TenantController extends Controller
         return response()->json($tenant);
     }
 
-    public function editTenant(Request $request, $tenantId) {
+    public function updateTenant(Request $request, $tenantId) {
         $tenant = Tenant::find($tenantId);
         
         if(!$tenant) {
@@ -71,7 +71,7 @@ class TenantController extends Controller
         return response()->json(['message'=>'Cập nhật thông tin khách thuê thành công'], 200);
     }
 
-    public function getTenantByRoom($roomId) {
+    public function getTenantRoom($roomId) {
         $tenant = Tenant::where('room_id', $roomId)->get();
         return $tenant;
     }

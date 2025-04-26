@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    public function getRoomByHouse($houseId) {
+    public function getRoomHouse($houseId) {
         $rooms = Room::where('house_id', $houseId)->get();
         return $rooms;
     }
@@ -40,7 +40,7 @@ class RoomController extends Controller
         return response()->json(['message' => 'Thêm phòng thành công', 'room' => $room], 200);
     }
 
-    public function getOneRoom($roomId) {
+    public function showRoom($roomId) {
         $room = Room::find($roomId);
         if(!$room) {
             return response()->json(['message'=>'Phòng không tồn tại'], 404);
@@ -48,11 +48,20 @@ class RoomController extends Controller
         return response()->json($room, 200);
     }
 
-    public function editRoom(Request $request, $roomId) {
+    public function updateRoom(Request $request, $roomId) {
         $room = Room::find($roomId);
 
         if(!$room) {
             return response()->json(['message'=>'Không tìm thấy phòng'], 404);
+        }
+
+        $exists = Room::where('house_id', $room->house_id)
+        ->where('name', $request->name)
+        ->where('id', '!=', $roomId)
+        ->exists();
+
+        if ($exists) {
+            return response()->json(['error' => 'Tên phòng đã tồn tại, vui lòng chọn tên khác'], 201);
         }
 
         $room->update([

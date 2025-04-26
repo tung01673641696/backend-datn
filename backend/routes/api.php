@@ -27,29 +27,29 @@ Route::prefix('/ward')->group(function() {
 });
 
 Route::prefix('/house-manager')->group(function(){
-    Route::get('/count-house/user/{userId}', [HouseController::class, 'countHouseByOwner']);
-    Route::get('/show-house/user/{userId}', [HouseController::class, 'getHouseByOwner']);
+    Route::get('/count-house/user/{userId}', [HouseController::class, 'hostCountHouse']);
+    Route::get('/show-house/user/{userId}', [HouseController::class, 'getHouseHost']);
     Route::post('/add-house', [HouseController::class, 'addHouse']);
-    Route::put('/edit-house/{houseId}', [HouseController::class, 'editHouse']);
+    Route::put('/edit-house/{houseId}', [HouseController::class, 'updateHouse']);
     Route::delete('/delete-house/house_id/{houseId}', [HouseController::class, 'deleteHouse']);
-    Route::get('/get-one-house/{houseId}', [HouseController::class, 'getOneHouse']);
+    Route::get('/get-one-house/{houseId}', [HouseController::class, 'showHouse']);
 });
 
 Route::prefix('/room-manager')->group(function(){
-    Route::get('/show-room/house_id/{houseId}', [RoomController::class, 'getRoomByHouse']);
+    Route::get('/show-room/house_id/{houseId}', [RoomController::class, 'getRoomHouse']);
     Route::post('/add-room', [RoomController::class, 'addRoom']);
-    Route::get('/get-one-room/room_id/{roomId}', [RoomController::class, 'getOneRoom']);
-    Route::put('/edit-room/{roomId}', [RoomController::class, 'editRoom']);
+    Route::get('/get-one-room/room_id/{roomId}', [RoomController::class, 'showRoom']);
+    Route::put('/edit-room/{roomId}', [RoomController::class, 'updateRoom']);
     Route::delete('/delete-room/room_id/{roomId}', [RoomController::class, 'deleteRoom']);
 });
 
 Route::prefix('/tenant-manager')->group(function() {
     Route::post('/add-tenant', [TenantController::class, 'addTenant']);
     Route::get('/get-all-tenant', [TenantController::class, 'getAllTenant']);
-    Route::get('/get-one-tenant/tenant_id/{tenantId}', [TenantController::class, 'getOneTenant']);
-    Route::put('/edit-tenant/{tenantId}', [TenantController::class, 'editTenant']);
+    Route::get('/get-one-tenant/tenant_id/{tenantId}', [TenantController::class, 'showTenant']);
+    Route::put('/edit-tenant/{tenantId}', [TenantController::class, 'updateTenant']);
     Route::delete('/delete-tenant/tenant_id/{tenantId}', [TenantController::class, 'deleteTenant']);
-    Route::get('/get-tenant-by-room/room_id/{roomId}', [TenantController::class, 'getTenantByRoom']);
+    Route::get('/get-tenant-by-room/room_id/{roomId}', [TenantController::class, 'getTenantRoom']);
 }); 
 
 Route::prefix('/vehicle-manager')->group(function() {
@@ -61,10 +61,16 @@ Route::prefix('/vehicle-manager')->group(function() {
 });
 
 Route::prefix('/posts')->group(function() {
-    Route::post('/add-posts-by-customer', [PostController::class, 'addPostsByCustomer']);
-    Route::get('/get-one-posts-by-customer/posts_id/{postId}', [PostController::class, 'getOnePostsByCustomer']);
-    Route::put('/edit-posts-by-customer/posts_id/{postId}', [PostController::class, 'editPostsByCustomer']);
+    Route::post('/add-posts-by-customer', [PostController::class, 'customerAddPost']);
+    Route::get('/get-one-posts-by-customer/posts_id/{postId}', [PostController::class, 'showPostCustomer']);
+    Route::put('/edit-posts-by-customer/posts_id/{postId}', [PostController::class, 'customerUpdatePost']);
+    Route::delete('/delete-posts-by-customer/posts_id/{postId}', [PostController::class, 'customerDeletePost']);
 
-    Route::post('/add-posts-by-landlord', [PostController::class, 'addPostByLandlord']);
-    Route::get('/get-posts-by-one-customer/customer_id/{customerId}', [PostController::class, 'getPostsByOneCustomer']);
+    Route::post('/add-posts-by-landlord', [PostController::class, 'landlordAddPost']);
+    Route::get('/get-posts-by-one-customer/customer_id/{customerId}', [PostController::class, 'getPostsCustomer']);
+});
+
+Route::prefix('/admin')->group(function() {
+    Route::get('/get-all-posts-by-all-customer', [PostController::class, 'getPostsCustomers']);
+    Route::put('/approve-posts-by-customer/{id}', [PostController::class, 'approvePostCustomer']);
 });

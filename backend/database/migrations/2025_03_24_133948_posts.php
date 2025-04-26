@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('price_deposit', 10 , 2)->nullable();
             $table->json('images')->nullable();
             $table->string('description')->nullable();
-            $table->enum('status', ['pending', 'approved', 'expired', 'deleted'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'reject', 'deleted'])->default('pending');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
