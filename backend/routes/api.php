@@ -75,3 +75,5 @@ Route::prefix('/admin')->group(function() {
     Route::put('/approve-posts-by-customer/{id}', [PostController::class, 'approvePostCustomer']);
     Route::put('/reject-posts-by-customer/{id}', [PostController::class, 'rejectPostCustomer']);
 });
+
+Route::get('/get-all-posts-by-all-customer-active', [PostController::class, 'getAllPostByCustomerActive']);

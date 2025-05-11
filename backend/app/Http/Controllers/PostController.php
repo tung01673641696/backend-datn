@@ -141,4 +141,28 @@ class PostController extends Controller
         $post->save();
         return response()->json(['message' => 'Từ chối bài đăng thành công'], 200);
     }
+
+    public function getAllPostByCustomerActive(Request $request) {
+        $query = Post::with(['user', 'district', 'ward'])        
+            ->whereHas('user', function ($q) {
+                $q->where('role_id', '1'); 
+            })
+        ->where('status', 'approved')
+        ->orderBy('created_at', 'desc');
+        
+        $posts = $query->get()->map(function ($post) {
+            return [
+                'id' => $post->id,
+                'user_name' => $post->user->name,
+                'title' => $post->title,
+                'room_type' => $post->room_type,
+                'price' => $post->price,
+                'status' => $post->status,
+                'district_name' => $post->district->name ?? null,
+                'ward_name' => $post->ward->name ?? null,
+                'created_at' => $post->created_at->format('H:i d/m/Y')
+            ];
+        });;
+        return response()->json($posts);
+    }
 }
