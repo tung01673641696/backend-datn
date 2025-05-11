@@ -36,14 +36,13 @@ class PostController extends Controller
             'district_id'=> $request-> district_id,
             'ward_id'=> $request-> ward_id,
             'description'=> $request-> description,
+            'status' => 'pending'
         ]);
-
         return response()->json(['message'=>'Cập nhật bài đăng thành công'], 200);
     }
 
     public function customerDeletePost($postId) {
         $posts = Post::where('id', $postId)->first();
-
         if(!$posts) {
             return response()->json(['message'=>'Không tìm thấy bài đăng'], 201);
         }
@@ -56,26 +55,21 @@ class PostController extends Controller
         if($exist) {
             return response()->json(['error' => 'Phòng này đã đăng rồi'], 201);
         }
-
         $posts = Post::create([
             'title' => $request -> title,
             'room_id' => $request -> room_id,
             'user_id' => $request -> user_id
         ]);
-
         return response()->json(['message' => 'Thêm bài đăng thành công', 'posts' => $posts], 200);
     }
 
     //danh sách bài đăng của 1 khách hàng 
     public function getPostsCustomer(Request $request, $customerId) {
         $status = $request->query('status');
-
         $query = Post::with(['district', 'ward'])->where('user_id', $customerId)->orderBy('created_at', 'desc');;
-
         if ($status) {
             $query->where('status', $status);
         }
-
         $posts = $query->get()->map(function ($post) {
             return [
                 'id' => $post->id,
@@ -90,13 +84,11 @@ class PostController extends Controller
                 'created_at' => $post->created_at->format('H:i d/m/Y')
             ];
         });;
-
         return response()->json($posts);
     }
 
     public function showPostCustomer($postId) {
         $posts = Post::find($postId);
-
         if(!$posts) {
             return response()->json(['message'=>'Không tìm thấy bài đăng'], 201);
         }
@@ -104,11 +96,9 @@ class PostController extends Controller
     }
 
     //Admin
-
-    //lấy tất cả bài đăng của tất cả khách hàng
     public function getPostsCustomers(Request $request) {
         $status = $request->query('status');
-        $query = Post::with(['user'])        
+        $query = Post::with(['user', 'district', 'ward'])        
             ->whereHas('user', function ($q) {
                 $q->where('role_id', '1');
         })->orderBy('created_at', 'desc');
@@ -116,13 +106,16 @@ class PostController extends Controller
         if ($status) {
             $query->where('status', $status);
         }
-
         $posts = $query->get()->map(function ($post) {
             return [
                 'id' => $post->id,
                 'user_name' => $post->user->name,
                 'title' => $post->title,
+                'room_type' => $post->room_type,
+                'price' => $post->price,
                 'status' => $post->status,
+                'district_name' => $post->district->name ?? null,
+                'ward_name' => $post->ward->name ?? null,
                 'created_at' => $post->created_at->format('H:i d/m/Y')
             ];
         });;
@@ -131,14 +124,21 @@ class PostController extends Controller
 
     public function approvePostCustomer($id) {
         $post = Post::find($id);
-    
         if (!$post) {
             return response()->json(['message' => 'Không tìm thấy bài đăng'], 404);
         }
-    
         $post->status = 'approved';
         $post->save();
-    
         return response()->json(['message' => 'Duyệt bài đăng thành công'], 200);
+    }
+
+    public function rejectPostCustomer($id) {
+        $post = Post::find($id);
+        if (!$post) {
+            return response()->json(['message' => 'Không tìm thấy bài đăng'], 404);
+        }
+        $post->status = 'reject';
+        $post->save();
+        return response()->json(['message' => 'Từ chối bài đăng thành công'], 200);
     }
 }

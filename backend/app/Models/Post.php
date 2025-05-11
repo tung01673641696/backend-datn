@@ -18,7 +18,8 @@ class Post extends Model
         'room_type',
         'price',
         'max_people',
-        'description'
+        'description',
+        'status'
     ];
 
     public function user()
