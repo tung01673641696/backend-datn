@@ -67,13 +67,16 @@ Route::prefix('/posts')->group(function() {
     Route::delete('/delete-posts-by-customer/posts_id/{postId}', [PostController::class, 'customerDeletePost']);
 
     Route::post('/add-posts-by-landlord', [PostController::class, 'landlordAddPost']);
-    Route::get('/get-posts-by-one-customer/customer_id/{customerId}', [PostController::class, 'getPostsCustomer']);
+    Route::get('/get-posts-by-one-people/people_id/{peopleId}', [PostController::class, 'getPostsOnePeople']);
 });
 
 Route::prefix('/admin')->group(function() {
     Route::get('/get-all-posts-by-all-customer', [PostController::class, 'getPostsCustomers']);
-    Route::put('/approve-posts-by-customer/{id}', [PostController::class, 'approvePostCustomer']);
-    Route::put('/reject-posts-by-customer/{id}', [PostController::class, 'rejectPostCustomer']);
+    Route::put('/approve-posts/{id}', [PostController::class, 'approvePostCustomer']);
+    Route::put('/reject-posts/{id}', [PostController::class, 'rejectPostCustomer']);
+
+    Route::get('/get-all-posts-by-all-landlord', [PostController::class, 'getPostsLandlord']);
 });
 
 Route::get('/get-all-posts-by-all-customer-active', [PostController::class, 'getAllPostByCustomerActive']);
+Route::get('/get-all-posts-by-all-landlord-active', [PostController::class, 'getAllPostByLandlordActive']);

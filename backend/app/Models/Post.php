@@ -11,6 +11,7 @@ class Post extends Model
     protected $fillable = [
         'id',
         'user_id',
+        'room_id',
         'title',
         'room_type',
         'district_id',
