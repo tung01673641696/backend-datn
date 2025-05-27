@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
-    protected $fillable = ['house_id','room_type','name','floor','price','price_deposit','area','user_number','image','description','is_vailable'];
-
+    
+    protected $fillable = ['house_id','room_type','name','floor','price','price_deposit','area','user_number','image','description','is_available'];
+    
     public function house() {
         return $this->belongsTo(House::class);
     }

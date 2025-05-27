@@ -33,8 +33,8 @@ class RoomController extends Controller
             'area'=> $request-> area,
             'user_number'=> $request-> user_number,
             'image'=> json_encode($request-> image),
-            'description'=> $request-> description,
-            'is_available'=> $request-> is_available
+            'description'=> $request->description,
+            'is_available'=> $request->is_available
         ]);
 
         return response()->json(['message' => 'Thêm phòng thành công', 'room' => $room], 200);

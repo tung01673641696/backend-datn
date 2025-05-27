@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('user_number');
             $table->json('image');
             $table->string('description')->nullable();
-            $table->boolean('is_available')->default(true);
+            $table->boolean('is_available')->default(false);
             $table->timestamps();
 
             $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');

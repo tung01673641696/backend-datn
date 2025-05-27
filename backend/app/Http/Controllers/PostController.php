@@ -205,21 +205,41 @@ class PostController extends Controller
             return [
                 'id' => $post->id,
                 'title' => $post->title,
-                'room_type' => $post->room->room_type ?? null,
-                'user_number' => $post->room->user_number ?? null,
                 'price' => $post->room->price ?? null,
-                'price_deposit' => $post->room->price_deposit ?? null,
                 'area' => $post->room->area ?? null,
                 'image' => $post->room->image ?? null,
-                'name_landlord' => $post->user->name ?? null,
                 'district_name' => $post->room->house->district->name ?? null,
                 'ward_name' => $post->room->house->ward->name ?? null,
-                'name_room' => $post->room->name ?? null,
-                'floor' => $post->room->floor ?? null,
-                'description' => $post->room->description ?? null,
-                'created_at' => $post->created_at->format('H:i d/m/Y')
             ];
         });;
+        return response()->json($posts);
+    }
+
+    public function getAllPostByLandlordActiveByDistrict($districtId) {
+        $query = Post::with(['user','room','room.house.district','room.house.ward'])        
+            ->whereHas('user', function ($q) {
+                $q->where('role_id', '2');
+            })
+            ->whereHas('room.house', function ($q) use ($districtId) {
+                if ($districtId) {
+                    $q->where('district_id', $districtId);
+                }
+            })
+            ->where('status', 'approved')
+            ->orderBy('created_at', 'desc');
+    
+        $posts = $query->get()->map(function ($post) {
+            return [
+                'id' => $post->id,
+                'title' => $post->title,
+                'price' => $post->room->price ?? null,
+                'area' => $post->room->area ?? null,
+                'image' => $post->room->image ?? null,
+                'district_name' => $post->room->house->district->name ?? null,
+                'ward_name' => $post->room->house->ward->name ?? null,
+            ];
+        });
+    
         return response()->json($posts);
     }
     

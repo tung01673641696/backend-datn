@@ -10,6 +10,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 
 Route::prefix('/user')->group(function() {
     Route::post('/register', [UserController::class, 'register']);
@@ -24,6 +25,10 @@ Route::prefix('/district')->group(function() {
 
 Route::prefix('/ward')->group(function() {
     Route::get('/show-ward/{district_id}', [WardController::class, 'getWardsByDistrict']);
+});
+
+Route::prefix('/category')->group(function() {
+    Route::get('/show-category', [CategoryController::class, 'showCategory']);
 });
 
 Route::prefix('/house-manager')->group(function(){
@@ -80,3 +85,4 @@ Route::prefix('/admin')->group(function() {
 
 Route::get('/get-all-posts-by-all-customer-active', [PostController::class, 'getAllPostByCustomerActive']);
 Route::get('/get-all-posts-by-all-landlord-active', [PostController::class, 'getAllPostByLandlordActive']);
+Route::get('/get-all-posts-by-all-landlord-active-by-district/district_id/{districtId}', [PostController::class, 'getAllPostByLandlordActiveByDistrict']);
