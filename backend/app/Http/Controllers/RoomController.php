@@ -41,11 +41,26 @@ class RoomController extends Controller
     }
 
     public function showRoom($roomId) {
-        $room = Room::find($roomId);
+        $room = Room::with('house')->find($roomId);
         if(!$room) {
             return response()->json(['message'=>'Phòng không tồn tại'], 404);
         }
-        return response()->json($room, 200);
+        return response()->json([
+            'id' => $room->id,
+            'name' => $room->name,
+            'room_type' => $room->room_type,
+            'floor' => $room->floor,
+            'price' => $room->price,
+            'price_deposit' => $room->price_deposit,
+            'area' => $room->area,
+            'user_number' => $room->user_number,
+            'image' => $room->image,
+            'description' => $room->description,
+            'is_available' => $room->is_available,
+            'house_id' => $room->house_id,
+            'house_name' => $room->house->name ?? null
+
+        ], 200);
     }
 
     public function updateRoom(Request $request, $roomId) {

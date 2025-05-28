@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('area');
             $table->unsignedInteger('user_number');
             $table->json('image');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('is_available')->default(false);
             $table->timestamps();
 
