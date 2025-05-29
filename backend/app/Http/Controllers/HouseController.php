@@ -35,10 +35,14 @@ class HouseController extends Controller
 
         $house = House::create([
         'name' => $request->name,
-        'address'=> $request-> address,
-        'user_id' => $request-> user_id,
+        'address'=> $request->address,
+        'user_id' => $request->user_id,
         'district_id' => $request->district_id,
-        'ward_id' => $request-> ward_id,
+        'ward_id' => $request->ward_id,
+        'electric_price' => $request->electric_price,
+        'water_price' => $request->water_price,
+        'service_record_day' => $request->service_record_day,
+        'service_cal_day' => $request->service_cal_day 
         ]);
 
         return response()->json(['message' => 'Thêm nhà thành công', 'house' => $house], 200);

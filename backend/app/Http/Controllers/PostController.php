@@ -53,7 +53,7 @@ class PostController extends Controller
     public function landlordAddPost(Request $request) {
         $exist = Post::where('room_id', $request->room_id)->first();
         if($exist) {
-            return response()->json(['error' => 'Phòng này đã đăng rồi'], 201);
+            return response()->json(['error' => 'Phòng này đã được đăng, vui lòng chọn phòng khác'], 201);
         }
         $posts = Post::create([
             'title' => $request -> title,
@@ -66,20 +66,26 @@ class PostController extends Controller
     //danh sách bài đăng của 1 khách hàng 
     public function getPostsOnePeople(Request $request, $peopleId) {
         $status = $request->query('status');
-        $query = Post::with(['district', 'ward'])->where('user_id', $peopleId)->orderBy('created_at', 'desc');;
+        $query = Post::with(['room','room.house.district','room.house.ward'])->where('user_id', $peopleId)->orderBy('created_at', 'desc');;
         if ($status) {
             $query->where('status', $status);
         }
         $posts = $query->get()->map(function ($post) {
+            $room = optional($post->room);
+            $house = optional($room->house);
+            $district = optional($house->district);
+            $ward = optional($house->ward);
             return [
                 'id' => $post->id,
                 'title' => $post->title,
-                'max_people' => $post->max_people,
-                'room_type' => $post->room_type,
-                'price' => $post->price,
-                'name_district' => $post->district->name ?? null,
-                'name_ward' => $post->ward->name ?? null,
-                'description' => $post->description,
+                'max_people' => $post->room->user_number,
+                'room_type' => $post->room->room_type,
+                'price' => $post->room->price,
+                'image' => $post->room->image,
+                'is_available' => $post->room->is_available,
+                'name_district' => $district->name ?? null,
+                'name_ward' => $ward->name ?? null,
+                'description' => $post->room->description,
                 'status' => $post->status,
                 'created_at' => $post->created_at->format('H:i d/m/Y')
             ];
