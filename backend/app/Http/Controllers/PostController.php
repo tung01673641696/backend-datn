@@ -210,6 +210,7 @@ class PostController extends Controller
         $posts = $query->get()->map(function ($post) {
             return [
                 'id' => $post->id,
+                'room_id' => $post->room_id,
                 'title' => $post->title,
                 'price' => $post->room->price ?? null,
                 'area' => $post->room->area ?? null,

@@ -23,10 +23,12 @@ return new class extends Migration
             $table->unsignedInteger('user_number');
             $table->json('image');
             $table->text('description')->nullable();
-            $table->boolean('is_available')->default(false);
+            $table->enum('status', ['available', 'reserved', 'rented'])->default('available');
+            $table->unsignedBigInteger('renter_id')->nullable();
             $table->timestamps();
 
             $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
+            $table->foreign('renter_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
@@ -35,6 +37,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rooms');
+        Schema::table('rooms', function (Blueprint $table) {
+        $table->dropForeign(['renter_id']);
+        $table->dropColumn('renter_id');
+    });
     }
 };

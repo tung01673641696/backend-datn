@@ -37,6 +37,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+    public function rooms() {
+        return $this->hasMany(Room::class, 'renter_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

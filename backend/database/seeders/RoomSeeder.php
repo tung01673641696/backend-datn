@@ -30,7 +30,7 @@ class RoomSeeder extends Seeder
                     "https://i.imgur.com/KPTeYB5.jpeg"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '1',
@@ -48,7 +48,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/IVz0Kjx",
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'reserved'
             ],
             [
                 'house_id'=> '1',
@@ -66,7 +66,7 @@ class RoomSeeder extends Seeder
                     "https://i.imgur.com/kHM0U8S.jpeg"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'rented'
             ],
             [
                 'house_id'=> '1',
@@ -84,7 +84,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/JXzdy1c"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '5',
@@ -102,7 +102,7 @@ class RoomSeeder extends Seeder
                     "https://i.imgur.com/CLBNpvs.jpeg"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '5',
@@ -120,7 +120,7 @@ class RoomSeeder extends Seeder
                     "https://i.imgur.com/rraLckw.jpeg"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '5',
@@ -138,7 +138,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/FHRe0Dh"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '5',
@@ -156,7 +156,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/1pnNwXz"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '10',
@@ -174,7 +174,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/JNiz2Ip"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '10',
@@ -192,7 +192,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/fYg7umD"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '10',
@@ -210,7 +210,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/rVxVqAr"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '10',
@@ -228,7 +228,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/6gv33d4"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '13',
@@ -246,7 +246,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/rItOs8V"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '13',
@@ -264,7 +264,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/iu69KrK"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '13',
@@ -282,7 +282,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/WAsGvIu"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '13',
@@ -300,7 +300,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/SVb8uJK"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '16',
@@ -318,7 +318,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/sOlfRjS"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '16',
@@ -336,115 +336,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/M8ZCJHy"
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
-            ],
-            [
-                'house_id'=> '16',
-                'room_type'=> 'chung cư mini',
-                'name' => '201',
-                'floor' => '2',
-                'price' => '4500000',
-                'price_deposit' => '4500000',
-                'area' => '35',
-                'user_number' => '4',
-                'image' => json_encode([
-                    "https://imgur.com/XWmnM5J",
-                    "https://imgur.com/TFRVjPJ",
-                    "https://imgur.com/4VUiY0R",
-                    "https://imgur.com/IfY5Kbt"
-                ]),
-                'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
-            ],
-            [
-                'house_id'=> '16',
-                'room_type'=> 'chung cư mini',
-                'name' => '202',
-                'floor' => '2',
-                'price' => '4200000',
-                'price_deposit' => '4200000',
-                'area' => '35',
-                'user_number' => '4',
-                'image' => json_encode([
-                    "https://imgur.com/QxehTV1",
-                    "https://imgur.com/yPMPf3q",
-                    "https://imgur.com/1ruozHy",
-                    "https://imgur.com/Kgc2axI"
-                ]),
-                'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
-            ],
-            [
-                'house_id'=> '19',
-                'room_type'=> 'chung cư mini',
-                'name' => '101',
-                'floor' => '1',
-                'price' => '5000000',
-                'price_deposit' => '5000000',
-                'area' => '35',
-                'user_number' => '4',
-                'image' => json_encode([
-                    "https://imgur.com/m0ugkyP",
-                    "https://imgur.com/qTZ0Mj7",
-                    "https://imgur.com/X5TWCRj",
-                    "https://imgur.com/vlqWZqU"
-                ]),
-                'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
-            ],
-            [
-                'house_id'=> '19',
-                'room_type'=> 'chung cư mini',
-                'name' => '102',
-                'floor' => '1',
-                'price' => '5000000',
-                'price_deposit' => '5000000',
-                'area' => '35',
-                'user_number' => '4',
-                'image' => json_encode([
-                    "https://imgur.com/xfa10GZ",
-                    "https://imgur.com/zrBt9VS",
-                    "https://imgur.com/CX0plg2",
-                    "https://imgur.com/2hu1Fhi"
-                ]),
-                'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
-            ],
-            [
-                'house_id'=> '19',
-                'room_type'=> 'chung cư mini',
-                'name' => '201',
-                'floor' => '2',
-                'price' => '5000000',
-                'price_deposit' => '5000000',
-                'area' => '35',
-                'user_number' => '4',
-                'image' => json_encode([
-                    "https://imgur.com/D9kWgWO",
-                    "https://imgur.com/sykblD6",
-                    "https://imgur.com/CERKmga",
-                    "https://imgur.com/ytGOlST"
-                ]),
-                'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
-            ],
-            [
-                'house_id'=> '19',
-                'room_type'=> 'chung cư mini',
-                'name' => '202',
-                'floor' => '2',
-                'price' => '4500000',
-                'price_deposit' => '4500000',
-                'area' => '35',
-                'user_number' => '4',
-                'image' => json_encode([
-                    "https://imgur.com/xhJgNj0",
-                    "https://imgur.com/XYjXHEb",
-                    "https://imgur.com/5qfFHpp",
-                    "https://imgur.com/s4j3SFz"
-                ]),
-                'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'is_available'=> true
+                'status'=> 'available'
             ],
         ]);
     }

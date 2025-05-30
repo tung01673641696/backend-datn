@@ -34,14 +34,14 @@ class RoomController extends Controller
             'user_number'=> $request-> user_number,
             'image'=> json_encode($request-> image),
             'description'=> $request->description,
-            'is_available'=> $request->is_available
+            'status'=> $request->status
         ]);
 
         return response()->json(['message' => 'Thêm phòng thành công', 'room' => $room], 200);
     }
 
     public function showRoom($roomId) {
-        $room = Room::with('house')->find($roomId);
+        $room = Room::with('house','post','user')->find($roomId);
         if(!$room) {
             return response()->json(['message'=>'Phòng không tồn tại'], 404);
         }
@@ -56,10 +56,14 @@ class RoomController extends Controller
             'user_number' => $room->user_number,
             'image' => $room->image,
             'description' => $room->description,
-            'is_available' => $room->is_available,
+            'status' => $room->status,
             'house_id' => $room->house_id,
-            'house_name' => $room->house->name ?? null
-
+            'house_name' => $room->house->name ?? null,
+            'house_address' => $room->house->address ?? null,
+            'electric_price' => $room->house->electrict_price,
+            'water_price' => $room->house->water_price,
+            'title' => $room->post->title,
+            'telephone_landlord' => $room->post->user->phone
         ], 200);
     }
 
@@ -90,7 +94,7 @@ class RoomController extends Controller
             'user_number'=> $request-> user_number,
             'image' => is_string($request->image) ? $request->image : json_encode($request->image),
             'description'=> $request-> description,
-            'is_available'=> $request-> is_available
+            'status'=> $request-> status
         ]);
 
         return response()->json(['message'=>'Cập nhật phòng thành công', 'room'=>$room], 200);
@@ -104,4 +108,5 @@ class RoomController extends Controller
         $room->delete();
         return response()->json(['message' => 'Xóa phòng thành công'], 200);
     }
+
 }

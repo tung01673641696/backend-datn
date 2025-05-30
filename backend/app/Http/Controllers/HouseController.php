@@ -18,10 +18,17 @@ class HouseController extends Controller
         return response()->json(['house_count' => $houseCount]);
     }
 
-    //tất cả nhà của chủ nhà
     public function getHouseHost($userId) {
-        $houses = House::where('user_id', $userId)->with(['district', 'ward'])->get();
-        return $houses;
+        $houses = House::with(['ward', 'district'])
+        ->where('user_id', $userId)
+        ->get();
+
+        foreach ($houses as $house) {
+            $house->room_number = $house->rooms()->count();
+            $house->room_number_null = $house->rooms()->where('status', 'available')->count();
+        }
+
+        return response()->json($houses);
     }
 
     public function addHouse(Request $request) {
@@ -55,7 +62,6 @@ class HouseController extends Controller
             return response()->json(['message' => 'Không tìm thấy nhà'], 404);
         }
         return response()->json($house);
-
     }
 
     public function updateHouse(Request $request, $houseId) {
@@ -76,9 +82,13 @@ class HouseController extends Controller
 
         $house->update([
             'name' => $request->name,
-            'address'=> $request-> address,
+            'address'=> $request->address,
             'district_id' => $request->district_id,
-            'ward_id' => $request-> ward_id,
+            'ward_id' => $request->ward_id,
+            'electric_price' => $request->electric_price,
+            'water_price' => $request->water_price,
+            'service_record_day' => $request->service_record_day,
+            'service_cal_day' => $request->service_cal_day
         ]);
         return response()->json(['message'=> "Cập nhật nhà thành công", 'house'=>$house], 200);
     }
