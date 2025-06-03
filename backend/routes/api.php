@@ -90,3 +90,5 @@ Route::get('/get-all-posts-by-all-landlord-active-by-district/district_id/{distr
 
 Route::post('/rental_request/user_id/{userId}/room_id/{roomId}', [RentalRequestController::class, 'rentalRequest']);
 Route::get('/all-rental-request/user_id/{userId}', [RentalRequestController::class, 'getAllRentalRequest']);
+Route::put('/rental-requests/{id}/reject', [RentalRequestController::class, 'reject']);
+Route::put('/rental-requests/{id}/approve', [RentalRequestController::class, 'approve']);
