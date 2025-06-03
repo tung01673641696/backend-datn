@@ -43,4 +43,8 @@ class Room extends Model
     public function rentalRequests() {
         return $this->hasMany(RentalRequest::class);
     }
+
+    public function contract() {
+        return $this->hasOne(Contract::class);
+    }
 }

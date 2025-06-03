@@ -45,6 +45,10 @@ class User extends Authenticatable
         return $this->hasMany(RentalRequest::class);
     }
 
+    public function contracts() {
+        return $this->hasMany(Contract::class, 'renter_id');
+    }
+
     
     protected $hidden = [
         'password',

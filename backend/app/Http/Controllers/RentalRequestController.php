@@ -41,8 +41,10 @@ class RentalRequestController extends Controller
             ->map(function ($request) {
                 return [
                     'id' => $request->id,
+                    'renter_id' => $request->user->id,
                     'renter_name' => $request->user->name ?? null,
                     'renter_phone' => $request->user->phone ?? null,
+                    'room_id' => $request->room->id,
                     'room_name' => $request->room->name ?? null,
                     'house_name' => $request->room->house->name ?? null,
                     'house_address' => $request->room->house->address ?? null,
@@ -56,22 +58,25 @@ class RentalRequestController extends Controller
 
     public function reject($id) {
         $rentalRequest = RentalRequest::find($id);
-
         if (!$rentalRequest) {
             return response()->json(['message' => 'Yêu cầu không tồn tại'], 404);
         }
-
         $rentalRequest->status = 'reject';
         $rentalRequest->save();
-
         return response()->json(['message' => 'Đã từ chối yêu cầu giữ phòng']);
     }
 
     public function approve($id) {
         $rentalRequest = RentalRequest::find($id);
-
         if (!$rentalRequest) {
             return response()->json(['message' => 'Yêu cầu không tồn tại'], 404);
+        }
+        $roomId = $rentalRequest->room_id;
+        $existingApproved = RentalRequest::where('room_id', $roomId)
+            ->where('status', 'approved')
+            ->exists();
+        if ($existingApproved) {
+            return response()->json(['message' => 'Phòng này đã được giữ bởi người khác'], 400);
         }
 
         $rentalRequest->status = 'approved';

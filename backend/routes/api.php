@@ -12,6 +12,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RentalRequestController;
+use App\Http\Controllers\ContractController;
 
 Route::prefix('/user')->group(function() {
     Route::post('/register', [UserController::class, 'register']);
@@ -92,3 +93,7 @@ Route::post('/rental_request/user_id/{userId}/room_id/{roomId}', [RentalRequestC
 Route::get('/all-rental-request/user_id/{userId}', [RentalRequestController::class, 'getAllRentalRequest']);
 Route::put('/rental-requests/{id}/reject', [RentalRequestController::class, 'reject']);
 Route::put('/rental-requests/{id}/approve', [RentalRequestController::class, 'approve']);
+
+Route::prefix('/contract')->group(function() {
+    Route::post('/create-deposit-contracts', [ContractController::class, 'createDepositContract']);
+});
