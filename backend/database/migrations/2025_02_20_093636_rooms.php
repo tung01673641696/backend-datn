@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('user_number');
             $table->json('image');
             $table->text('description')->nullable();
-            $table->enum('status', ['available', 'reserved', 'rented'])->default('available');
+            $table->enum('status', ['available', 'rented'])->default('available');
             $table->unsignedBigInteger('renter_id')->nullable();
             $table->timestamps();
 

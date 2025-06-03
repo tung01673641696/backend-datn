@@ -48,7 +48,7 @@ class RoomSeeder extends Seeder
                     "https://imgur.com/IVz0Kjx",
                 ]),
                 'description' => 'Phòng có điều hòa, nóng lạnh, tủ quần áo, kệ bếp,giường.\nKhông chung chủ,ra vào vân tay\nVệ sinh khép kín\nGần chợ dân sinh\n',
-                'status'=> 'reserved'
+                'status'=> 'available'
             ],
             [
                 'house_id'=> '1',

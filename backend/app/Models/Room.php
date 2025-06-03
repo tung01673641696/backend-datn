@@ -20,7 +20,8 @@ class Room extends Model
         'user_number',
         'image',
         'description',
-        'status'
+        'status',
+        'renter_id'
     ];
     
     public function house() {
@@ -30,13 +31,16 @@ class Room extends Model
     public function tenants() {
         return $this->hasMany(Tenant::class);
     }
-    public function post(){
+    public function post() {
         return $this->hasOne(Post::class, 'room_id');
     }
-    public function user(){
+    public function user() {
         return $this->belongsTo(User::class);
     }
     public function renter() {
         return $this->belongsTo(User::class, 'renter_id');
+    }
+    public function rentalRequests() {
+        return $this->hasMany(RentalRequest::class);
     }
 }

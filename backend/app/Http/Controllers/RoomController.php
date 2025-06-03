@@ -108,5 +108,4 @@ class RoomController extends Controller
         $room->delete();
         return response()->json(['message' => 'Xóa phòng thành công'], 200);
     }
-
 }
