@@ -96,4 +96,6 @@ Route::put('/rental-requests/{id}/approve', [RentalRequestController::class, 'ap
 
 Route::prefix('/contract')->group(function() {
     Route::post('/create-deposit-contracts', [ContractController::class, 'createDepositContract']);
+    Route::get('/all-deposit-contract/renter/{renterId}', [ContractController::class, 'getAllDepositContractByRenter']);
+    Route::get('/deposit-contract-detail/renter/{renterId}/room/{roomId}', [ContractController::class, 'getDepositContractDetail']);
 });
