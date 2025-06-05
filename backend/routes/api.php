@@ -88,6 +88,8 @@ Route::prefix('/admin')->group(function() {
 Route::get('/get-all-posts-by-all-customer-active', [PostController::class, 'getAllPostByCustomerActive']);
 Route::get('/get-all-posts-by-all-landlord-active', [PostController::class, 'getAllPostByLandlordActive']);
 Route::get('/get-all-posts-by-all-landlord-active-by-district/district_id/{districtId}', [PostController::class, 'getAllPostByLandlordActiveByDistrict']);
+// Route::get('/get-all-posts-by-all-tenant-active', [PostController::class, 'getAllPostByTenantActive']);
+
 
 Route::post('/rental_request/user_id/{userId}/room_id/{roomId}', [RentalRequestController::class, 'rentalRequest']);
 Route::get('/all-rental-request/user_id/{userId}', [RentalRequestController::class, 'getAllRentalRequest']);
@@ -98,4 +100,5 @@ Route::prefix('/contract')->group(function() {
     Route::post('/create-deposit-contracts', [ContractController::class, 'createDepositContract']);
     Route::get('/all-deposit-contract/renter/{renterId}', [ContractController::class, 'getAllDepositContractByRenter']);
     Route::get('/deposit-contract-detail/renter/{renterId}/room/{roomId}', [ContractController::class, 'getDepositContractDetail']);
+    Route::put('/cancel/{id}', [ContractController::class, 'cancelDepositContract']);
 });

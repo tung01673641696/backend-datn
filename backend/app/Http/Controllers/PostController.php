@@ -164,6 +164,7 @@ class PostController extends Controller
                 'max_people' => $post->max_people,
                 'price' => $post->price,
                 'status' => $post->status,
+                'district_id' => $post->district->id,
                 'district_name' => $post->district->name ?? null,
                 'ward_name' => $post->ward->name ?? null,
                 'description' => $post->description,
@@ -238,6 +239,7 @@ class PostController extends Controller
         $posts = $query->get()->map(function ($post) {
             return [
                 'id' => $post->id,
+                'room_id' => $post->room_id,
                 'title' => $post->title,
                 'price' => $post->room->price ?? null,
                 'area' => $post->room->area ?? null,
@@ -249,5 +251,27 @@ class PostController extends Controller
     
         return response()->json($posts);
     }
+
+
+    // public function getAllPostByTenantActive(Request $request) {
+    //     $query = Post::with(['user','room','district','ward'])        
+    //         ->whereHas('user', function ($q) {
+    //             $q->where('role_id', '1'); 
+    //         })
+    //     ->where('status', 'approved')
+    //     ->orderBy('created_at', 'desc');
+        
+    //     $posts = $query->get()->map(function ($post) {
+    //         return [
+    //             'id' => $post->id,
+    //             'title' => $post->title,
+    //             'room_type' => $post-> room_type,
+    //             'price' => $post->price,
+    //             'district_name' => $post->district->name ?? null,
+    //             'ward_name' => $post->ward->name ?? null,
+    //         ];
+    //     });;
+    //     return response()->json($posts);
+    // }
     
 }

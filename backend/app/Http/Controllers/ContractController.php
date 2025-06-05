@@ -38,6 +38,7 @@ class ContractController extends Controller
     public function getAllDepositContractByRenter($renterId) {
         $contracts = Contract::where('renter_id', $renterId)
             ->where('type', 'deposit')
+            ->where('status', 'signed')
             ->with(['room.house'])
             ->get();
 
@@ -56,20 +57,6 @@ class ContractController extends Controller
 
         return response()->json(['deposit_contracts' => $result], 200);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function getDepositContractDetail($renterId, $roomId) {
         $contract = Contract::where('renter_id', $renterId)
@@ -104,9 +91,27 @@ class ContractController extends Controller
                 'address' => $house->address ?? '',
             ],
             'contract' => [
+                'contract_id' => $contract->id,
                 'deposit_amount' => $contract->amount,
                 'start_date' => $contract->start_date,
             ]
+        ]);
+    }
+
+    public function cancelDepositContract($id) {
+        $contract = Contract::find($id);
+
+        if (!$contract) {
+            return response()->json(['message' => 'Hợp đồng không tồn tại'], 404);
+        }
+
+        $contract->status = 'cancelled';
+        $contract->save();
+
+
+        return response()->json([
+            'message' => 'Hợp đồng đã được hủy thành công',
+            'contract' => $contract
         ]);
     }
 }
