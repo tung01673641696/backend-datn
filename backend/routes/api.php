@@ -101,4 +101,5 @@ Route::prefix('/contract')->group(function() {
     Route::get('/all-deposit-contract/renter/{renterId}', [ContractController::class, 'getAllDepositContractByRenter']);
     Route::get('/deposit-contract-detail/renter/{renterId}/room/{roomId}', [ContractController::class, 'getDepositContractDetail']);
     Route::put('/cancel/{id}', [ContractController::class, 'cancelDepositContract']);
+    Route::get('/landlord/{landlordId}/deposit-contracts', [ContractController::class, 'getAllDepositContractsByLandlord']);
 });

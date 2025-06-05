@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\House;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\RentalRequest;
 
 class ContractController extends Controller
 {
@@ -15,6 +16,11 @@ class ContractController extends Controller
                         ->where('room_id', $request->room_id)
                         ->where('type', 'deposit')
                         ->first();
+        RentalRequest::where('user_id', $request->renter_id)
+            ->where('room_id', $request->room_id)
+            ->delete();
+
+        
         if ($existing) {
             return response()->json([
                 'message' => 'Hợp đồng cọc đã tồn tại cho người thuê này và phòng này.'
@@ -113,5 +119,47 @@ class ContractController extends Controller
             'message' => 'Hợp đồng đã được hủy thành công',
             'contract' => $contract
         ]);
+    }
+
+
+    public function getAllDepositContractsByLandlord($landlordId) {
+        $houseIds = House::where('user_id', $landlordId)->pluck('id');
+        $roomIds = Room::whereIn('house_id', $houseIds)->pluck('id');
+
+        $contracts = Contract::whereIn('room_id', $roomIds)
+            ->where('type', 'deposit')
+            ->with(['room.house', 'renter'])
+            ->get();
+
+        $result = $contracts->map(function ($contract) {
+            $room = $contract->room;
+            $house = $room->house ?? null;
+            $renter = $contract->renter ?? null;
+
+            return [
+                'contract_id' => $contract->id,
+                'deposit_amount' => $contract->amount,
+                'start_date' => $contract->start_date,
+                'status' => $contract->status,
+
+                'renter' => [
+                    'id' => $renter->id ?? null,
+                    'name' => $renter->name ?? '',
+                    'phone' => $renter->phone ?? '',
+                ],
+                'room' => [
+                    'id' => $room->id ?? null,
+                    'name' => $room->name ?? '',
+                    'price' => $room->price ?? '',
+                ],
+                'house' => [
+                    'id' => $house->id ?? null,
+                    'name' => $house->name ?? '',
+                    'address' => $house->address ?? '',
+                ],
+            ];
+        });
+
+        return response()->json(['deposit_contracts' => $result], 200);
     }
 }
