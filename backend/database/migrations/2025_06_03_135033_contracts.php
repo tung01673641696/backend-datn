@@ -18,7 +18,7 @@ return new class extends Migration
         $table->date('end_date')->nullable();
         $table->text('note')->nullable();
 
-        $table->enum('status', ['signed', 'cancelled']);
+        $table->enum('status', ['pending', 'signed', 'cancelled']);
 
         $table->timestamps();
     });

@@ -121,6 +121,23 @@ class ContractController extends Controller
         ]);
     }
 
+    public function confirmDepositContract($id) {
+        $contract = Contract::find($id);
+
+        if (!$contract) {
+            return response()->json(['message' => 'Hợp đồng không tồn tại'], 404);
+        }
+
+        $contract->status = 'signed';
+        $contract->save();
+
+
+        return response()->json([
+            'message' => 'Bạn đã xác nhận hợp đồng cọc',
+            'contract' => $contract
+        ]);
+    }
+
 
     public function getAllDepositContractsByLandlord($landlordId) {
         $houseIds = House::where('user_id', $landlordId)->pluck('id');
