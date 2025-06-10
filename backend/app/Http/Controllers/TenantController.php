@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Tenant;
+use App\Models\Contract;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -74,5 +76,17 @@ class TenantController extends Controller
     public function getTenantRoom($roomId) {
         $tenant = Tenant::where('room_id', $roomId)->get();
         return $tenant;
+    }
+
+    public function getDetailTenantByRoom($roomId) {
+        $tenant = Contract::where('room_id', $roomId)->where('type','deposit')
+        ->first();
+
+        if(!$tenant) {
+            return null;
+        }
+        
+        $userDetail = User::where('id', $tenant->renter_id)->first();
+        return $userDetail;
     }
 }

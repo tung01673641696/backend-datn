@@ -5,6 +5,7 @@ use App\Models\Contract;
 use App\Models\User;
 use App\Models\Room;
 use App\Models\House;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\RentalRequest;
@@ -19,14 +20,11 @@ class ContractController extends Controller
         RentalRequest::where('user_id', $request->renter_id)
             ->where('room_id', $request->room_id)
             ->delete();
-
-        
         if ($existing) {
             return response()->json([
                 'message' => 'Hợp đồng cọc đã tồn tại cho người thuê này và phòng này.'
             ], 409);
         }
-
 
         $contract = Contract::create([
         'renter_id' => $request->renter_id,
@@ -35,16 +33,15 @@ class ContractController extends Controller
         'amount' => $request->amount,
         'start_date' => $request->start_date,
         'note' => $request->note,
-        'status' => 'signed'
+        'status' => 'pending'
         ]);
-
         return response()->json(['message' => 'Thêm hợp đồng cọc thành công', 'deposit-contract' => $contract], 200);
     }
 
     public function getAllDepositContractByRenter($renterId) {
         $contracts = Contract::where('renter_id', $renterId)
             ->where('type', 'deposit')
-            ->where('status', 'signed')
+            ->whereIn('status', ['pending','signed'])
             ->with(['room.house'])
             ->get();
 
@@ -99,6 +96,7 @@ class ContractController extends Controller
             'contract' => [
                 'contract_id' => $contract->id,
                 'deposit_amount' => $contract->amount,
+                'status' => $contract->status,
                 'start_date' => $contract->start_date,
             ]
         ]);
@@ -113,7 +111,6 @@ class ContractController extends Controller
 
         $contract->status = 'cancelled';
         $contract->save();
-
 
         return response()->json([
             'message' => 'Hợp đồng đã được hủy thành công',
@@ -130,7 +127,6 @@ class ContractController extends Controller
 
         $contract->status = 'signed';
         $contract->save();
-
 
         return response()->json([
             'message' => 'Bạn đã xác nhận hợp đồng cọc',
@@ -178,5 +174,35 @@ class ContractController extends Controller
         });
 
         return response()->json(['deposit_contracts' => $result], 200);
+    }
+
+    public function createContract(Request $request) {
+        $existingRental = Contract::where('room_id', $request->room_id)
+            ->where('type', 'rental')
+            ->whereIn('status', ['pending', 'signed'])
+            ->first();
+
+        if ($existingRental) {
+            return response()->json([
+                'error' => 'Phòng đã có hợp đồng thuê.'
+            ], 409);
+        }
+
+        $contract = Contract::create([
+            'room_id' => $request->room_id,
+            'type' => 'rental',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'status' => 'pending'
+        ]);
+
+        Tenant::create([
+            'room_id' => $request->room_id,
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'identity_number' => $request->identity_number,
+        ]);
+
+        return response()->json(['message' => 'Tạo hợp đồng thuê và lưu thông tin khách thuê thành công']);
     }
 }

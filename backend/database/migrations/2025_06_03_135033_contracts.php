@@ -10,17 +10,16 @@ return new class extends Migration
     public function up(): void {
     Schema::create('contracts', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('renter_id')->constrained('users')->onDelete('cascade');
+        $table->unsignedBigInteger('renter_id')->nullable();
         $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
         $table->enum('type', ['deposit', 'rental']);
-        $table->decimal('amount', 10, 2);
         $table->date('start_date');
         $table->date('end_date')->nullable();
         $table->text('note')->nullable();
-
         $table->enum('status', ['pending', 'signed', 'cancelled']);
 
         $table->timestamps();
+        $table->foreign('renter_id')->references('id')->on('users')->onDelete('set null');
     });
     }
 

@@ -71,4 +71,14 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['message'=>'Xóa người dùng thành công'], 200);
     }
+
+    public function getDetailUser($userId) {
+        $user = User::where('id', $userId)->first();
+
+        if(!$user) {
+            return response()->json(['message' => 'Không tìm thấy người dùng'], 404);
+        }
+
+        return response()->json($user);
+    }
 }

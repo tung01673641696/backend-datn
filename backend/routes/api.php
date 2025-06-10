@@ -19,6 +19,7 @@ Route::prefix('/user')->group(function() {
     Route::post('/login', [UserController::class, 'login']);
     Route::get('/get-all-user', [UserController::class, 'getAllUser']);
     Route::delete('/delete-user/user_id/{userId}', [UserController::class, 'deleteUser']);
+    Route::get('/get-detail-user/user_id/{userId}', [UserController::class, 'getDetailUser']);
 });
 
 Route::prefix('/district')->group(function() {
@@ -96,6 +97,9 @@ Route::get('/all-rental-request/user_id/{userId}', [RentalRequestController::cla
 Route::put('/rental-requests/{id}/reject', [RentalRequestController::class, 'reject']);
 Route::put('/rental-requests/{id}/approve', [RentalRequestController::class, 'approve']);
 
+Route::get('/get-detail-tenant-by-room/room_id/{roomId}', [TenantController::class, 'getDetailTenantByRoom']);
+
+
 Route::prefix('/contract')->group(function() {
     Route::post('/create-deposit-contracts', [ContractController::class, 'createDepositContract']);
     Route::get('/all-deposit-contract/renter/{renterId}', [ContractController::class, 'getAllDepositContractByRenter']);
@@ -103,4 +107,6 @@ Route::prefix('/contract')->group(function() {
     Route::put('/cancel/{id}', [ContractController::class, 'cancelDepositContract']);
     Route::put('/confirm/{id}', [ContractController::class, 'confirmDepositContract']);
     Route::get('/landlord/{landlordId}/deposit-contracts', [ContractController::class, 'getAllDepositContractsByLandlord']);
+
+    Route::post('/create-contract', [ContractController::class, 'createContract']);
 });

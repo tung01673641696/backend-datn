@@ -10,10 +10,9 @@ class Contract extends Model
     use HasFactory;
 
     protected $fillable = [
-        'renter_id', 
+        'renter_id',
         'room_id', 
         'type', 
-        'amount', 
         'start_date', 
         'end_date', 
         'note', 

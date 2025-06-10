@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->unsignedBigInteger('room_id');
-            $table->string('note')->nullable();
+            $table->string('identity_number')->nullable();
+            $table->text('note')->nullable();
+            $table->unsignedBigInteger('room_id')->nullable();
             $table->timestamps();
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('set null');
         });
     }
 
