@@ -179,7 +179,7 @@ class ContractController extends Controller
     public function createContract(Request $request) {
         $existingRental = Contract::where('room_id', $request->room_id)
             ->where('type', 'rental')
-            ->whereIn('status', ['pending', 'signed'])
+            ->whereIn('status', ['signed', 'cancelled'])
             ->first();
 
         if ($existingRental) {
@@ -193,7 +193,7 @@ class ContractController extends Controller
             'type' => 'rental',
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'status' => 'pending'
+            'status' => 'signed'
         ]);
 
         Tenant::create([
@@ -204,5 +204,113 @@ class ContractController extends Controller
         ]);
 
         return response()->json(['message' => 'Tạo hợp đồng thuê và lưu thông tin khách thuê thành công']);
+    }
+
+
+    // public function getAllContractByRenter($renterId) {
+    //     $contracts = Contract::where('renter_id', $renterId)
+    //         ->where('type', 'rental')
+    //         ->whereIn('status', ['pending','signed'])
+    //         ->with(['room.house'])
+    //         ->get();
+
+    //     $result = $contracts->map(function ($contract) {
+    //         $room = $contract->room;
+    //         $house = $room->house ?? null;
+
+    //         return [
+    //             'room_id' => $room->id,
+    //             'room_name' => $room->name ?? '',
+    //             'room_price' => $room->price ?? '',
+    //             'house_name' => $house->name ?? '',
+    //             'house_address' => $house->address ?? '',
+    //         ];
+    //     });
+
+    //     return response()->json(['contracts' => $result], 200);
+    // }
+
+    public function landlordGetAllDepositContract($landlordId) {
+        $houseIds = House::where('user_id', $landlordId)->pluck('id');
+        $roomIds = Room::whereIn('house_id', $houseIds)->pluck('id');
+
+        $contracts = Contract::whereIn('room_id', $roomIds)
+            ->where('type', 'deposit')
+            ->with(['room.house', 'renter'])
+            ->get();
+
+        $result = $contracts->map(function ($contract) {
+            $room = $contract->room;
+            $house = $room->house ?? null;
+            $renter = $contract->renter ?? null;
+
+            return [
+                'contract_id' => $contract->id,
+                'start_date' => $contract->start_date,
+                'status' => $contract->status,
+
+                'renter' => [
+                    'id' => $renter->id ?? null,
+                    'name' => $renter->name ?? '',
+                    'phone' => $renter->phone ?? '',
+                ],
+                'room' => [
+                    'id' => $room->id ?? null,
+                    'name' => $room->name ?? '',
+                    'price' => $room->price ?? '',
+                    'price_deposit' => $room->price_deposit
+                ],
+                'house' => [
+                    'id' => $house->id ?? null,
+                    'name' => $house->name ?? '',
+                    'address' => $house->address ?? '',
+                ],
+            ];
+        });
+
+        return response()->json(['deposit_contract' => $result], 200);
+    }
+
+
+    public function landlordGetAllContract($landlordId) {
+        $houseIds = House::where('user_id', $landlordId)->pluck('id');
+        $roomIds = Room::whereIn('house_id', $houseIds)->pluck('id');
+
+        $contracts = Contract::whereIn('room_id', $roomIds)
+            ->where('type', 'rental')
+            ->with(['room.house', 'tenant'])
+            ->get();
+
+        $result = $contracts->map(function ($contract) {
+            $room = $contract->room;
+            $house = $room->house ?? null;
+            $tenant = $contract->tenant ?? null;
+
+            return [
+                'contract_id' => $contract->id,
+                'start_date' => $contract->start_date,
+                'end_date' => $contract->end_date,
+                'status' => $contract->status,
+
+                'tenant' => [
+                    'id' => $tenant->id ?? null,
+                    'name' => $tenant->name ?? '',
+                    'phone' => $tenant->phone ?? '',    
+                ],
+                'room' => [
+                    'id' => $room->id ?? null,
+                    'name' => $room->name ?? '',
+                    'price' => $room->price ?? '',
+                    'price_deposit' => $room->price_deposit
+                ],
+                'house' => [
+                    'id' => $house->id ?? null,
+                    'name' => $house->name ?? '',
+                    'address' => $house->address ?? '',
+                ],
+            ];
+        });
+
+        return response()->json(['contract' => $result], 200);
     }
 }

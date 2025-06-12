@@ -26,4 +26,8 @@ class Contract extends Model
     public function room() {
         return $this->belongsTo(Room::class, 'room_id');
     }
+
+    public function tenant() {
+        return $this->hasOne(Tenant::class, 'room_id', 'room_id');
+    }
 }

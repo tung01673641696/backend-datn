@@ -102,11 +102,15 @@ Route::get('/get-detail-tenant-by-room/room_id/{roomId}', [TenantController::cla
 
 Route::prefix('/contract')->group(function() {
     Route::post('/create-deposit-contracts', [ContractController::class, 'createDepositContract']);
-    Route::get('/all-deposit-contract/renter/{renterId}', [ContractController::class, 'getAllDepositContractByRenter']);
+    Route::get('/all-deposit-contract-by-renter/renter/{renterId}', [ContractController::class, 'getAllDepositContractByRenter']);
     Route::get('/deposit-contract-detail/renter/{renterId}/room/{roomId}', [ContractController::class, 'getDepositContractDetail']);
     Route::put('/cancel/{id}', [ContractController::class, 'cancelDepositContract']);
     Route::put('/confirm/{id}', [ContractController::class, 'confirmDepositContract']);
     Route::get('/landlord/{landlordId}/deposit-contracts', [ContractController::class, 'getAllDepositContractsByLandlord']);
 
     Route::post('/create-contract', [ContractController::class, 'createContract']);
+
+    Route::get('manager-contract/landlord-get-all-deposit-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllDepositContract']);
+    Route::get('manager-contract/landlord-get-all-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllContract']);
+
 });

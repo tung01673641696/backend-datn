@@ -22,4 +22,8 @@ class Tenant extends Model
         return $this->hasMany(Vehicle::class);
     }
 
+        public function contracts() {
+        return $this->hasMany(Contract::class);
+    }
+
 }
