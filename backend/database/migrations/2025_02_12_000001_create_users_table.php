@@ -21,11 +21,14 @@ return new class extends Migration
 
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        chema::table('users', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

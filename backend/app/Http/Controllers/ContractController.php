@@ -203,32 +203,12 @@ class ContractController extends Controller
             'identity_number' => $request->identity_number,
         ]);
 
+        Room::where('id', $request->room_id)->update([
+            'status' => 'rented'
+        ]);
+
         return response()->json(['message' => 'Tạo hợp đồng thuê và lưu thông tin khách thuê thành công']);
     }
-
-
-    // public function getAllContractByRenter($renterId) {
-    //     $contracts = Contract::where('renter_id', $renterId)
-    //         ->where('type', 'rental')
-    //         ->whereIn('status', ['pending','signed'])
-    //         ->with(['room.house'])
-    //         ->get();
-
-    //     $result = $contracts->map(function ($contract) {
-    //         $room = $contract->room;
-    //         $house = $room->house ?? null;
-
-    //         return [
-    //             'room_id' => $room->id,
-    //             'room_name' => $room->name ?? '',
-    //             'room_price' => $room->price ?? '',
-    //             'house_name' => $house->name ?? '',
-    //             'house_address' => $house->address ?? '',
-    //         ];
-    //     });
-
-    //     return response()->json(['contracts' => $result], 200);
-    // }
 
     public function landlordGetAllDepositContract($landlordId) {
         $houseIds = House::where('user_id', $landlordId)->pluck('id');
@@ -313,4 +293,72 @@ class ContractController extends Controller
 
         return response()->json(['contract' => $result], 200);
     }
+
+
+    public function getRentalContractDetail($roomId) {
+        $contract = Contract::where('room_id', $roomId)
+            ->where('type', 'rental')
+            ->with(['room.house.owner'])
+            ->first();
+
+        if (!$contract) {
+            return response()->json(['message' => 'Không tìm thấy hợp đồng thuê'], 404);
+        }
+
+        $tenant = Tenant::where('room_id', $roomId)->first();
+
+        return response()->json([
+            'contract_id' => $contract->id,
+            'start_date' => $contract->start_date,
+            'end_date' => $contract->end_date,
+            'status' => $contract->status,
+            'note' => $contract->note,
+            'renter' => [
+                'name' => $tenant->name,
+                'phone' => $tenant->phone,
+                'identity_number' => $tenant->identity_number
+            ],
+            'room' => [
+                'id' => $contract->room->id ?? null,
+                'name' => $contract->room->name ?? '',
+                'price' => $contract->room->price ?? '',
+            ],
+            'house' => [
+                'id' => $contract->room->house->id ?? null,
+                'name' => $contract->room->house->name ?? '',
+                'address' => $contract->room->house->address ?? '',
+                'electric_price' => $contract->room->house->electric_price ?? '',
+                'water_price' => $contract->room->house->water_price ?? ''
+            ],
+
+            'owner' => [
+                'id' => $contract->room->house->owner->id ?? null,
+                'name' => $contract->room->house->owner->name ?? '',
+                'phone' => $contract->room->house->owner->phone ?? '',
+            ],
+        ]);
+    }
+
+        // public function getAllContractByRenter($renterId) {
+    //     $contracts = Contract::where('renter_id', $renterId)
+    //         ->where('type', 'rental')
+    //         ->whereIn('status', ['pending','signed'])
+    //         ->with(['room.house'])
+    //         ->get();
+
+    //     $result = $contracts->map(function ($contract) {
+    //         $room = $contract->room;
+    //         $house = $room->house ?? null;
+
+    //         return [
+    //             'room_id' => $room->id,
+    //             'room_name' => $room->name ?? '',
+    //             'room_price' => $room->price ?? '',
+    //             'house_name' => $house->name ?? '',
+    //             'house_address' => $house->address ?? '',
+    //         ];
+    //     });
+
+    //     return response()->json(['contracts' => $result], 200);
+    // }
 }

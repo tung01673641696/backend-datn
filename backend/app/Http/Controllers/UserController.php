@@ -47,29 +47,58 @@ class UserController extends Controller
     }
 
     public function getAllUser() {
-        $users = User::with('role')
-        ->select('id', 'name', 'phone', 'role_id', 'created_at')
-        ->orderBy('created_at','desc')
-        ->get()->map(function ($user) {
+        $activeUsers = User::with('role')
+            ->whereNull('deleted_at')
+            ->select('id', 'name', 'phone', 'role_id', 'created_at')
+            ->get();
+
+        $inactiveUsers = User::with('role')
+            ->onlyTrashed()
+            ->select('id', 'name', 'phone', 'role_id', 'created_at')
+            ->get();
+
+        $users = $activeUsers->map(function ($user) {
             return [
                 'id' => $user->id,
                 'name' => $user->name,
                 'phone' => $user->phone,
                 'role' => $user->role->name,
-                'created_at' => $user->created_at->format('H:i d/m/Y')
+                'created_at' => $user->created_at->format('H:i d/m/Y'),
+                'status' => 'active'
             ];
-        });
+        })->merge($inactiveUsers->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'phone' => $user->phone,
+                'role' => $user->role->name,
+                'created_at' => $user->created_at->format('H:i d/m/Y'),
+                'status' => 'inactive'
+            ];
+        }));
+
         return response()->json($users);
     }
 
     public function deleteUser($userId) {
-        $user = User::where('id', $userId)->first();
+        $user = User::findOrFail($userId);
 
         if(!$user) {
             return response()->json(['message'=>'Không tìm thấy người dùng'], 201);
         }
         $user->delete();
         return response()->json(['message'=>'Xóa người dùng thành công'], 200);
+    }
+
+    public function restoreUser($userId) {
+        $user = User::withTrashed()->findOrFail($userId);
+
+        if (!$user->trashed()) {
+            return response()->json(['message' => 'Người dùng đang hoạt động'], 400);
+        }
+
+        $user->restore();
+        return response()->json(['message' => 'Khôi phục người dùng thành công'], 200);
     }
 
     public function getDetailUser($userId) {

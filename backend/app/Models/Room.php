@@ -47,4 +47,8 @@ class Room extends Model
     public function contract() {
         return $this->hasOne(Contract::class);
     }
+
+    public function serviceBills() {
+        return $this->hasMany(ServiceBill::class);
+    }
 }

@@ -72,12 +72,12 @@ class RentalRequestController extends Controller
             return response()->json(['message' => 'Yêu cầu không tồn tại'], 404);
         }
         $roomId = $rentalRequest->room_id;
-        $existingApproved = RentalRequest::where('room_id', $roomId)
-            ->where('status', 'approved')
-            ->exists();
-        if ($existingApproved) {
-            return response()->json(['message' => 'Phòng này đã được giữ bởi người khác'], 400);
-        }
+        // $existingApproved = RentalRequest::where('room_id', $roomId)
+        //     ->where('status', 'approved')
+        //     ->exists();
+        // if ($existingApproved) {
+        //     return response()->json(['message' => 'Phòng này đã được giữ bởi người khác'], 400);
+        // }
 
         $rentalRequest->status = 'approved';
         $rentalRequest->save();

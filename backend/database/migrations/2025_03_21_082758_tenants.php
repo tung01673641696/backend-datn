@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('identity_number')->nullable();
+            $table->boolean('is_represent')->default(false);
             $table->text('note')->nullable();
             $table->unsignedBigInteger('room_id')->nullable();
             $table->timestamps();

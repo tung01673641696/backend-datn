@@ -63,10 +63,10 @@ class PostController extends Controller
         return response()->json(['message' => 'Thêm bài đăng thành công', 'posts' => $posts], 200);
     }
 
-    //danh sách bài đăng của 1 khách hàng 
-    public function getPostsOnePeople(Request $request, $peopleId) {
+    //chủ nhà lấy tất cả bài đăng của họ 
+    public function landlordGetAllPost(Request $request, $landlordId) {
         $status = $request->query('status');
-        $query = Post::with(['room','room.house.district','room.house.ward'])->where('user_id', $peopleId)->orderBy('created_at', 'desc');;
+        $query = Post::with(['room','room.house.district','room.house.ward'])->where('user_id', $landlordId)->orderBy('created_at', 'desc');;
         if ($status) {
             $query->where('status', $status);
         }

@@ -20,6 +20,7 @@ Route::prefix('/user')->group(function() {
     Route::get('/get-all-user', [UserController::class, 'getAllUser']);
     Route::delete('/delete-user/user_id/{userId}', [UserController::class, 'deleteUser']);
     Route::get('/get-detail-user/user_id/{userId}', [UserController::class, 'getDetailUser']);
+    Route::put('/restore-user/user_id/{userId}', [UserController::class, 'restoreUser']);
 });
 
 Route::prefix('/district')->group(function() {
@@ -75,7 +76,7 @@ Route::prefix('/posts')->group(function() {
     Route::delete('/delete-posts-by-customer/posts_id/{postId}', [PostController::class, 'customerDeletePost']);
 
     Route::post('/add-posts-by-landlord', [PostController::class, 'landlordAddPost']);
-    Route::get('/get-posts-by-one-people/people_id/{peopleId}', [PostController::class, 'getPostsOnePeople']);
+    Route::get('/landlord-get-all-post/landlord_id/{landlordId}', [PostController::class, 'landlordGetAllPost']);
 });
 
 Route::prefix('/admin')->group(function() {
@@ -112,5 +113,6 @@ Route::prefix('/contract')->group(function() {
 
     Route::get('manager-contract/landlord-get-all-deposit-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllDepositContract']);
     Route::get('manager-contract/landlord-get-all-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllContract']);
+    Route::get('/rental-contract-detail/room/{roomId}', [ContractController::class, 'getRentalContractDetail']);
 
 });
