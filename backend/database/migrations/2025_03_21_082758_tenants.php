@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('set null');
+            $table->softDeletes();
         });
     }
 

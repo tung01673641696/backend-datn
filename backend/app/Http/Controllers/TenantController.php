@@ -13,6 +13,7 @@ class TenantController extends Controller
         $tenant = Tenant::create([
         'name' => $request->name,
         'phone'=> $request-> phone,
+        'identity_number' => $request->identity_number,
         'room_id' => $request-> room_id,
         'note' => $request->note,
         ]);
@@ -21,24 +22,32 @@ class TenantController extends Controller
     }
 
     public function getAllTenant(Request $request) {
-        $tenants = Tenant::with(['room', 'room.house'])
-            ->get()
-            ->map(function ($tenant, $index) {
-                return [
-                    'index' => $index + 1,
-                    'tenant' => $tenant,
-                    'house_id' => $tenant->room->house->id, 
-                    'house_name' => $tenant->room->house->name,
-                    'room_id' => $tenant->room->id,
-                    'room_name' => $tenant->room->name,
-                ];
-            });
-    
+        $status = $request->query('status');
+
+        $tenantsQuery = Tenant::with(['room', 'room.house']);
+
+        if ($status === 'active') {
+            $tenantsQuery->whereNull('deleted_at');
+        } elseif ($status === 'inactive') {
+            $tenantsQuery->onlyTrashed();
+        }
+
+        $tenants = $tenantsQuery->get()->map(function ($tenant, $index) {
+            return [
+                'index' => $index + 1,
+                'tenant' => $tenant,
+                'house_id' => $tenant->room->house->id ?? null,
+                'house_name' => $tenant->room->house->name ?? null,
+                'room_id' => $tenant->room->id ?? null,
+                'room_name' => $tenant->room->name ?? null,
+            ];
+        });
+
         return response()->json($tenants);
     }
 
     public function deleteTenant($tenantId) {
-        $tenant = Tenant::where('id', $tenantId)->first();
+        $tenant = Tenant::findOrFail($tenantId);
 
         if(!$tenant) {
             return response()->json(['message'=>'Không tìm thấy khách thuê'], 201);
