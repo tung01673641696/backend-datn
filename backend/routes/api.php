@@ -8,7 +8,6 @@ use App\Http\Controllers\WardController;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TenantController;
-use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RentalRequestController;
@@ -61,14 +60,6 @@ Route::prefix('/tenant-manager')->group(function() {
     Route::get('/get-tenant-by-room/room_id/{roomId}', [TenantController::class, 'getTenantRoom']);
 }); 
 
-Route::prefix('/vehicle-manager')->group(function() {
-    Route::post('/add-vehicle', [VehicleController::class, 'addVehicle']);
-    Route::get('/get-all-vehicle', [VehicleController::class, 'getAllVehicle']);
-    Route::delete('/delete-vehicle/vehicle_id/{vehicleId}', [VehicleController::class, 'deleteVehicle']);
-    Route::get('/get-one-vehicle/vehicle_id/{vehicleId}', [VehicleController::class, 'getOneVehicle']);
-    Route::put('/edit-vehicle/{vehicleId}', [VehicleController::class, 'editVehicle']);
-});
-
 Route::prefix('/posts')->group(function() {
     Route::post('/add-posts-by-customer', [PostController::class, 'customerAddPost']);
     Route::get('/get-one-posts-by-customer/posts_id/{postId}', [PostController::class, 'showPostCustomer']);
@@ -77,6 +68,7 @@ Route::prefix('/posts')->group(function() {
 
     Route::post('/add-posts-by-landlord', [PostController::class, 'landlordAddPost']);
     Route::get('/landlord-get-all-post/landlord_id/{landlordId}', [PostController::class, 'landlordGetAllPost']);
+    Route::get('/tenant-get-all-post/tenant_id/{tenantId}', [PostController::class, 'tenantGetAllPost']);
 });
 
 Route::prefix('/admin')->group(function() {
@@ -90,7 +82,6 @@ Route::prefix('/admin')->group(function() {
 Route::get('/get-all-posts-by-all-customer-active', [PostController::class, 'getAllPostByCustomerActive']);
 Route::get('/get-all-posts-by-all-landlord-active', [PostController::class, 'getAllPostByLandlordActive']);
 Route::get('/get-all-posts-by-all-landlord-active-by-district/district_id/{districtId}', [PostController::class, 'getAllPostByLandlordActiveByDistrict']);
-// Route::get('/get-all-posts-by-all-tenant-active', [PostController::class, 'getAllPostByTenantActive']);
 
 
 Route::post('/rental_request/user_id/{userId}/room_id/{roomId}', [RentalRequestController::class, 'rentalRequest']);

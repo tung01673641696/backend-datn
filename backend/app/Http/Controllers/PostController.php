@@ -93,6 +93,37 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
+
+    //người thuê lấy tất cả bài đăng của họ 
+    public function tenantGetAllPost(Request $request, $tenantId) {
+        $status = $request->query('status');
+        $query = Post::with(['room','room.house.district','room.house.ward'])->where('user_id', $tenantId)->orderBy('created_at', 'desc');;
+        if ($status) {
+            $query->where('status', $status);
+        }
+        $posts = $query->get()->map(function ($post) {
+            $room = optional($post->room);
+            $house = optional($room->house);
+            $district = optional($house->district);
+            $ward = optional($house->ward);
+            return [
+                'id' => $post->id,
+                'title' => $post->title,
+                'max_people' => $post->max_people,
+                'room_type' => $post->room_type,
+                'price' => $post->price,
+                'is_available' => $post->room->is_available ?? null,
+                'name_district' => $post->district->name ?? null,
+                'name_ward' => $post->ward->name ?? null,
+                'description' => $post->description,
+                'status' => $post->status,
+                'created_at' => $post->created_at->format('H:i d/m/Y')
+            ];
+        });;
+        return response()->json($posts);
+    }
+
+
     public function showPostCustomer($postId) {
         $posts = Post::with('district')->find($postId);
         if(!$posts) {
