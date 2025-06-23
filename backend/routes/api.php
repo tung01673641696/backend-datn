@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RentalRequestController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\ServiceBillController;
 
 Route::prefix('/user')->group(function() {
     Route::post('/register', [UserController::class, 'register']);
@@ -101,9 +102,14 @@ Route::prefix('/contract')->group(function() {
     Route::get('/landlord/{landlordId}/deposit-contracts', [ContractController::class, 'getAllDepositContractsByLandlord']);
 
     Route::post('/create-contract', [ContractController::class, 'createContract']);
+    Route::get('/get-all-contract-by-renter/renter/{renterId}', [ContractController::class, 'getAllRentalContractByRenter']);
 
     Route::get('manager-contract/landlord-get-all-deposit-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllDepositContract']);
     Route::get('manager-contract/landlord-get-all-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllContract']);
     Route::get('/rental-contract-detail/room/{roomId}', [ContractController::class, 'getRentalContractDetail']);
 
+});
+
+Route::prefix('/bill')->group(function() {
+    Route::post('/add-bill', [ServiceBillController::class, 'addServiceBill']);
 });

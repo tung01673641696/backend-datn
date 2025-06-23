@@ -339,26 +339,36 @@ class ContractController extends Controller
         ]);
     }
 
-        // public function getAllContractByRenter($renterId) {
-    //     $contracts = Contract::where('renter_id', $renterId)
-    //         ->where('type', 'rental')
-    //         ->whereIn('status', ['pending','signed'])
-    //         ->with(['room.house'])
-    //         ->get();
+    public function getAllRentalContractByRenter($renterId) {
+        $contracts = Contract::where('renter_id', $renterId)
+            ->where('type', 'rental')
+            ->where('status', 'signed')
+            ->with(['room.house'])
+            ->get();
 
-    //     $result = $contracts->map(function ($contract) {
-    //         $room = $contract->room;
-    //         $house = $room->house ?? null;
+        $result = $contracts->map(function ($contract) {
+            $room = $contract->room;
+            $house = $room->house ?? null;
 
-    //         return [
-    //             'room_id' => $room->id,
-    //             'room_name' => $room->name ?? '',
-    //             'room_price' => $room->price ?? '',
-    //             'house_name' => $house->name ?? '',
-    //             'house_address' => $house->address ?? '',
-    //         ];
-    //     });
+            return [
+                'contract_id' => $contract->id,
+                'start_date' => $contract->start_date,
+                'end_date' => $contract->end_date,
+                'status' => $contract->status,
 
-    //     return response()->json(['contracts' => $result], 200);
-    // }
+                'room' => [
+                    'id' => $room->id ?? null,
+                    'name' => $room->name ?? '',
+                    'price' => $room->price ?? '',
+                ],
+                'house' => [
+                    'id' => $house->id ?? null,
+                    'name' => $house->name ?? '',
+                    'address' => $house->address ?? '',
+                ]
+            ];
+        });
+
+        return response()->json(['rental_contracts' => $result], 200);
+    }
 }

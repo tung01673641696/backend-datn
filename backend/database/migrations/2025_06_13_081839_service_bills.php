@@ -10,7 +10,8 @@ return new class extends Migration
         Schema::create('service_bills', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('room_id');
-            $table->date('month');
+            $table->unsignedTinyInteger('month');
+            $table->year('year');  
             $table->integer('electric_usage');
             $table->integer('water_usage');
             $table->decimal('electric_price', 10, 2);

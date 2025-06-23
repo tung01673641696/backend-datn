@@ -17,6 +17,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'Gohomy1',
                 'address' => '32 Ngõ 250 Kim Giang',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 5,
                 'district_id' => 7,
                 'ward_id' => 86,
@@ -24,6 +26,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'Gohomy2',
                 'address' => '6/16/250 Kim Giang',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 5,
                 'district_id' => 7,
                 'ward_id' => 86,
@@ -31,6 +35,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'Gohomy3',
                 'address' => '56/250 Kim Giang',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 5,
                 'district_id' => 7,
                 'ward_id' => 86,
@@ -38,6 +44,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'Gohomy4',
                 'address' => '6/100/250 Kim Giang',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 5,
                 'district_id' => 7,
                 'ward_id' => 86,
@@ -45,6 +53,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'MyHome1',
                 'address' => '2 Cầu Giấy',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 6,
                 'district_id' => 6,
                 'ward_id' => 79,
@@ -52,6 +62,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'MyHome2',
                 'address' => '4 Cầu Giấy',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 6,
                 'district_id' => 6,
                 'ward_id' => 79,
@@ -59,6 +71,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'MyHome3',
                 'address' => '6 Cầu Giấy',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 6,
                 'district_id' => 6,
                 'ward_id' => 79,
@@ -66,6 +80,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'MyHome4',
                 'address' => '8 Cầu Giấy',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 6,
                 'district_id' => 6,
                 'ward_id' => 79,
@@ -73,6 +89,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'MyHome5',
                 'address' => '10 Cầu Giấy',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 6,
                 'district_id' => 6,
                 'ward_id' => 79,
@@ -80,6 +98,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'HappyHome1',
                 'address' => '2 Kim Mã',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 7,
                 'district_id' => 1,
                 'ward_id' => 5,
@@ -87,6 +107,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'HappyHome2',
                 'address' => '10 Kim Mã',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 7,
                 'district_id' => 1,
                 'ward_id' => 5,
@@ -94,6 +116,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'HappyHome3',
                 'address' => '20 Kim Mã',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 7,
                 'district_id' => 1,
                 'ward_id' => 5,
@@ -101,6 +125,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'CityHome1',
                 'address' => '2 Trần Phú',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 8,
                 'district_id' => 5,
                 'ward_id' => 71,
@@ -108,6 +134,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'CityHome2',
                 'address' => '17 Trần Phú',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 8,
                 'district_id' => 5,
                 'ward_id' => 71,
@@ -115,6 +143,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'CityHome3',
                 'address' => '20 Trần Phú',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 8,
                 'district_id' => 5,
                 'ward_id' => 71,
@@ -122,6 +152,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'THHome1',
                 'address' => '2 Chùa Bộc',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 9,
                 'district_id' => 4,
                 'ward_id' => 53,
@@ -129,6 +161,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'THHome2',
                 'address' => '10 Chùa Bộc',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 9,
                 'district_id' => 4,
                 'ward_id' => 53,
@@ -136,6 +170,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'THHome3',
                 'address' => '20 Chùa Bộc',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 9,
                 'district_id' => 4,
                 'ward_id' => 53,
@@ -143,6 +179,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'GHome1',
                 'address' => '2 Trần Đại Nghĩa',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 10,
                 'district_id' => 3,
                 'ward_id' => 31,
@@ -150,6 +188,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'GHome2',
                 'address' => '10 Trần Đại Nghĩa',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 10,
                 'district_id' => 3,
                 'ward_id' => 31,
@@ -157,6 +197,8 @@ class HouseSeeder extends Seeder
             [
                 'name' => 'GHome3',
                 'address' => '12 Trần Đại Nghĩa',
+                'electric_price' => 4000,
+                'water_price' => 20000,
                 'user_id' => 10,
                 'district_id' => 3,
                 'ward_id' => 31,

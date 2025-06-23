@@ -11,6 +11,7 @@ class ServiceBill extends Model
     protected $fillable = [
         'room_id',
         'month',
+        'year',
         'electric_usage',
         'water_usage',
         'electric_price',
