@@ -28,42 +28,82 @@ class ServiceBillController extends Controller
         ], 201);
     }
 
-    public function getAllServiceBill() {
+    public function getAllServiceBill(Request $request) {
+        $houseId = $request->query('house_id');
+        $roomId = $request->query('room_id');
+        $billingDate = $request->query('billing_date');
+        $status = $request->query('status');
 
         $bills = DB::table('service_bills')
-        ->join('tenants', 'service_bills.room_id', '=', 'tenants.room_id')
-        ->join('rooms', 'service_bills.room_id', '=', 'rooms.id')
-        ->join('houses', 'rooms.house_id', '=', 'houses.id')
-        ->select(
-            'service_bills.*',
-            'rooms.*',
-            'houses.name as house_name',
-            'tenants.name as tenant_name'
-        )
-        ->orderByDesc('billing_date')
-        ->get();
-        
+            ->leftJoin('rooms', 'service_bills.room_id', '=', 'rooms.id')
+            ->leftJoin('houses', 'rooms.house_id', '=', 'houses.id')
+            ->leftJoin(DB::raw('
+                (SELECT t1.room_id, t1.name as tenant_name FROM tenants t1
+                INNER JOIN (
+                    SELECT room_id, MAX(created_at) as latest_created FROM tenants GROUP BY room_id
+                ) t2 ON t1.room_id = t2.room_id AND t1.created_at = t2.latest_created
+                ) as tenant_sub
+            '), 'service_bills.room_id', '=', 'tenant_sub.room_id')
+            ->select(
+                'service_bills.*',
+                'rooms.name as room_name',
+                'houses.name as house_name',
+                'tenant_sub.tenant_name'
+            );
 
-        $formatted = $bills->map(function ($bill) {
-    return [
-        'id' => $bill->id,
-        'billing_date' => $bill->billing_date,
-        'electric_usage' => $bill->electric_usage,
-        'water_usage' => $bill->water_usage,
-        'electric_price' => $bill->electric_price,
-        'water_price' => $bill->water_price,
-        'total_amount' => $bill->total_amount,
-        'status' => $bill->status,
-        'room_name' => $bill->name ?? null, // nếu rooms.name => alias lại cho rõ hơn
-        'house_name' => $bill->house_name,
-        'tenant_name' => $bill->tenant_name ?? null,
-    ];
-});
+        if (!empty($houseId)) {
+            $bills->where('rooms.house_id', $houseId);
+        }
 
+        if (!empty($roomId)) {
+            $bills->where('rooms.id', $roomId);
+        }
+
+        if (!empty($billingDate)) {
+            $bills->where('service_bills.billing_date', 'like', $billingDate . '%');
+        }
+
+        if (!empty($status)) {
+            $bills->where('service_bills.status', $status);
+        }
+
+        $result = $bills->orderByDesc('service_bills.billing_date')->get();
+
+        $formatted = $result->map(function ($bill) {
+            return [
+                'id' => $bill->id,
+                'billing_date' => $bill->billing_date,
+                'electric_usage' => $bill->electric_usage,
+                'water_usage' => $bill->water_usage,
+                'electric_price' => $bill->electric_price,
+                'water_price' => $bill->water_price,
+                'total_amount' => $bill->total_amount,
+                'status' => $bill->status,
+                'room_name' => $bill->room_name ?? null,
+                'house_name' => $bill->house_name ?? null,
+                'tenant_name' => $bill->tenant_name ?? null,
+            ];
+        });
 
         return response()->json([
             'message' => 'Danh sách hóa đơn dịch vụ',
             'data' => $formatted,
         ]);
+    }
+
+    public function updateStatusBill($id) {
+        $bill = ServiceBill::find($id);
+        if (!$bill) {
+            return response()->json(['message' => 'Hóa đơn không tồn tại'], 404);
         }
+
+        $bill->status = 'paid';
+        $bill->save();
+
+        return response()->json([
+            'message' => 'Cập nhật trạng thái hóa đơn thành công',
+            'data' => $bill,
+        ]);
+    }
+
 }
