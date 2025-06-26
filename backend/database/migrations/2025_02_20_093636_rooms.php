@@ -24,11 +24,9 @@ return new class extends Migration
             $table->json('image');
             $table->text('description')->nullable();
             $table->enum('status', ['available','deposit', 'rented'])->default('available');
-            $table->unsignedBigInteger('renter_id')->nullable();
             $table->timestamps();
 
             $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
-            $table->foreign('renter_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

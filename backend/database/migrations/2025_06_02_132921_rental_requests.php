@@ -13,7 +13,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('room_id');
-            $table->text('note')->nullable();
             $table->enum('status', ['pending', 'approved', 'reject'])->default('pending');
             $table->timestamps();
 

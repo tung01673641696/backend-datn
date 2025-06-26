@@ -37,9 +37,7 @@ class Room extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
-    public function renter() {
-        return $this->belongsTo(User::class, 'renter_id');
-    }
+
     public function rentalRequests() {
         return $this->hasMany(RentalRequest::class);
     }
@@ -50,5 +48,9 @@ class Room extends Model
 
     public function serviceBills() {
         return $this->hasMany(ServiceBill::class);
+    }
+
+    public function currentTenant() {
+        return $this->hasOne(Tenant::class)->latest(); // hoặc thêm điều kiện where nếu có
     }
 }

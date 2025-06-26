@@ -125,7 +125,7 @@ class PostController extends Controller
 
 
     public function showPostCustomer($postId) {
-        $posts = Post::with('district')->find($postId);
+        $posts = Post::with('district', 'user')->find($postId);
         if(!$posts) {
             return response()->json(['message'=>'Không tìm thấy bài đăng'], 404);
         }

@@ -10,8 +10,7 @@ class ServiceBill extends Model
     use HasFactory;
     protected $fillable = [
         'room_id',
-        'month',
-        'year',
+        'billing_date',
         'electric_usage',
         'water_usage',
         'electric_price',

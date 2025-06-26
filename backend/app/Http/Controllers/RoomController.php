@@ -60,10 +60,10 @@ class RoomController extends Controller
             'house_id' => $room->house_id,
             'house_name' => $room->house->name ?? null,
             'house_address' => $room->house->address ?? null,
-            'electric_price' => $room->house->electrict_price,
+            'electric_price' => $room->house->electric_price,
             'water_price' => $room->house->water_price,
-            'title' => $room->post->title,
-            'telephone_landlord' => $room->post->user->phone
+            'title' => $room->post->title ?? null,
+            'telephone_landlord' => $room->post->user->phone ?? null
         ], 200);
     }
 

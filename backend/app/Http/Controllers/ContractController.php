@@ -210,48 +210,6 @@ class ContractController extends Controller
         return response()->json(['message' => 'Tạo hợp đồng thuê và lưu thông tin khách thuê thành công']);
     }
 
-    public function landlordGetAllDepositContract($landlordId) {
-        $houseIds = House::where('user_id', $landlordId)->pluck('id');
-        $roomIds = Room::whereIn('house_id', $houseIds)->pluck('id');
-
-        $contracts = Contract::whereIn('room_id', $roomIds)
-            ->where('type', 'deposit')
-            ->with(['room.house', 'renter'])
-            ->get();
-
-        $result = $contracts->map(function ($contract) {
-            $room = $contract->room;
-            $house = $room->house ?? null;
-            $renter = $contract->renter ?? null;
-
-            return [
-                'contract_id' => $contract->id,
-                'start_date' => $contract->start_date,
-                'status' => $contract->status,
-
-                'renter' => [
-                    'id' => $renter->id ?? null,
-                    'name' => $renter->name ?? '',
-                    'phone' => $renter->phone ?? '',
-                ],
-                'room' => [
-                    'id' => $room->id ?? null,
-                    'name' => $room->name ?? '',
-                    'price' => $room->price ?? '',
-                    'price_deposit' => $room->price_deposit
-                ],
-                'house' => [
-                    'id' => $house->id ?? null,
-                    'name' => $house->name ?? '',
-                    'address' => $house->address ?? '',
-                ],
-            ];
-        });
-
-        return response()->json(['deposit_contract' => $result], 200);
-    }
-
-
     public function landlordGetAllContract($landlordId) {
         $houseIds = House::where('user_id', $landlordId)->pluck('id');
         $roomIds = Room::whereIn('house_id', $houseIds)->pluck('id');

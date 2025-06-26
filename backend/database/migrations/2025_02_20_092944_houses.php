@@ -15,9 +15,7 @@ return new class extends Migration
             $table->string('address');
             $table->decimal('electric_price', 10, 2)->default(0);
             $table->decimal('water_price', 10, 2)->default(0);
-            $table->tinyInteger('service_record_day')->nullable();
-            $table->tinyInteger('service_cal_day')->nullable();
-            
+
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('ward_id');

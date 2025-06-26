@@ -18,8 +18,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             HouseSeeder::class,
-            RoomSeeder::class,
-            CategorySeeder::class
+            RoomSeeder::class
         ]);
     }
 }
