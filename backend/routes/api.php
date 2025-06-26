@@ -107,4 +107,5 @@ Route::prefix('/bill')->group(function() {
     Route::post('/add-bill', [ServiceBillController::class, 'addServiceBill']);
     Route::get('/get-all-service-bill', [ServiceBillController::class, 'getAllServiceBill']);
     Route::put('/update-bill/{id}', [ServiceBillController::class, 'updateStatusBill']);
+    Route::get('/get-detail-bill/{id}', [ServiceBillController::class, 'getDetailBill']);
 });

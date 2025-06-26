@@ -106,4 +106,19 @@ class ServiceBillController extends Controller
         ]);
     }
 
+    public function getDetailBill($id) {
+        $bill = ServiceBill::find($id);
+
+        if (!$bill) {
+            return response()->json([
+                'message' => 'Hóa đơn dịch vụ không tồn tại'
+            ], 404);
+        }
+
+        return response()->json([
+            'data' => $bill
+        ]);
+    }
+
+
 }
