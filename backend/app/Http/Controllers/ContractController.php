@@ -297,12 +297,22 @@ class ContractController extends Controller
         ]);
     }
 
-    public function getAllRentalContractByRenter($renterId) {
-        $contracts = Contract::where('renter_id', $renterId)
+    public function getAllRentalContractsByTenant($tenantId) {
+        $roomId = Tenant::where('id', $tenantId)->value('room_id');
+
+        if (!$roomId) {
+            return response()->json(['message' => 'Người thuê không có phòng ở hiện tại'], 404);
+        }
+
+        $contracts = Contract::where('room_id', $roomId)
             ->where('type', 'rental')
             ->where('status', 'signed')
             ->with(['room.house'])
             ->get();
+
+        if ($contracts->isEmpty()) {
+            return response()->json(['message' => 'Không có hợp đồng thuê nào cho người thuê này'], 404);
+        }
 
         $result = $contracts->map(function ($contract) {
             $room = $contract->room;

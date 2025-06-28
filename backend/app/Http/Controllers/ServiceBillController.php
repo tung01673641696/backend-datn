@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ServiceBill;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\User;
+use App\Models\Tenant;
 
 class ServiceBillController extends Controller
 {
@@ -28,7 +29,7 @@ class ServiceBillController extends Controller
         ], 201);
     }
 
-    public function getAllServiceBill(Request $request) {
+    public function getAllServiceBillByLandlord(Request $request) {
         $houseId = $request->query('house_id');
         $roomId = $request->query('room_id');
         $billingDate = $request->query('billing_date');
@@ -120,5 +121,31 @@ class ServiceBillController extends Controller
         ]);
     }
 
+    public function getAllServiceBillByTenant($tenantId) {
+        $tenant = DB::table('tenants')->where('id', $tenantId)->first();
+
+        if (!$tenant) {
+            return response()->json(['message' => 'Tenant không tồn tại'], 404);
+        }
+
+        $roomId = $tenant->room_id;
+
+        $bills = DB::table('service_bills')
+            ->leftJoin('rooms', 'service_bills.room_id', '=', 'rooms.id')
+            ->leftJoin('houses', 'rooms.house_id', '=', 'houses.id')
+            ->where('service_bills.room_id', $roomId)
+            ->select(
+                'service_bills.*',
+                'rooms.name as room_name',
+                'houses.name as house_name'
+            )
+            ->orderByDesc('service_bills.billing_date')
+            ->get();
+
+        return response()->json([
+            'message' => 'Danh sách hóa đơn dịch vụ theo tenant',
+            'data' => $bills
+        ]);
+    }
 
 }

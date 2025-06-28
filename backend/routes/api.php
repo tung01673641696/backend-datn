@@ -97,7 +97,9 @@ Route::prefix('/contract')->group(function() {
     Route::get('/landlord/{landlordId}/deposit-contracts', [ContractController::class, 'getAllDepositContractsByLandlord']);
 
     Route::post('/create-contract', [ContractController::class, 'createContract']);
-    Route::get('/get-all-contract-by-renter/renter/{renterId}', [ContractController::class, 'getAllRentalContractByRenter']);
+    // Route::get('/get-all-contract-by-renter/renter/{renterId}', [ContractController::class, 'getAllRentalContractByRenter']);
+    Route::get('/get-all-rental-contract-by-tenant/tenant/{tenantId}', [ContractController::class, 'getAllRentalContractsByTenant']);
+
     Route::get('manager-contract/landlord-get-all-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllContract']);
     Route::get('/rental-contract-detail/room/{roomId}', [ContractController::class, 'getRentalContractDetail']);
 
@@ -105,7 +107,9 @@ Route::prefix('/contract')->group(function() {
 
 Route::prefix('/bill')->group(function() {
     Route::post('/add-bill', [ServiceBillController::class, 'addServiceBill']);
-    Route::get('/get-all-service-bill', [ServiceBillController::class, 'getAllServiceBill']);
+    Route::get('/get-all-service-bill-by-landlord', [ServiceBillController::class, 'getAllServiceBillByLandlord']);
     Route::put('/update-bill/{id}', [ServiceBillController::class, 'updateStatusBill']);
     Route::get('/get-detail-bill/{id}', [ServiceBillController::class, 'getDetailBill']);
+
+    Route::get('/get-all-service-bill-by-tenant/{tenantId}', [ServiceBillController::class, 'getAllServiceBillByTenant']);
 });
