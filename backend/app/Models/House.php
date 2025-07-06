@@ -15,9 +15,7 @@ class House extends Model
     'district_id',
     'ward_id',
     'electric_price',
-    'water_price',
-    'service_record_day',
-    'service_cal_day'
+    'water_price'
     ];
     
     public function user() {

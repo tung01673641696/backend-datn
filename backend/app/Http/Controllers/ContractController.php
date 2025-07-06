@@ -263,7 +263,9 @@ class ContractController extends Controller
             return response()->json(['message' => 'Không tìm thấy hợp đồng thuê'], 404);
         }
 
-        $tenant = Tenant::where('room_id', $roomId)->first();
+        $tenant = Tenant::where('room_id', $roomId)
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         return response()->json([
             'contract_id' => $contract->id,

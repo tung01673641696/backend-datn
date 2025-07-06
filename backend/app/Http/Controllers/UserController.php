@@ -33,8 +33,8 @@ class UserController extends Controller
         $user = User::where('phone', $request->phone)->first();
         
         if(!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessage([
-                'message' => ['Số điện thoại hoặc mật khẩu không đúng']
+            throw ValidationException::withMessages([
+                'message' => ['Sai tài khoản hoặc mật khẩu']
             ]);
         }
        

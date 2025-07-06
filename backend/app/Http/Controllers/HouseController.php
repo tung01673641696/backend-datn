@@ -48,8 +48,6 @@ class HouseController extends Controller
         'ward_id' => $request->ward_id,
         'electric_price' => $request->electric_price,
         'water_price' => $request->water_price,
-        'service_record_day' => $request->service_record_day,
-        'service_cal_day' => $request->service_cal_day 
         ]);
 
         return response()->json(['message' => 'Thêm nhà thành công', 'house' => $house], 200);

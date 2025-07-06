@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             HouseSeeder::class,
-            RoomSeeder::class
+            RoomSeeder::class,
+            PostSeeder::class,
+            RentalPostSeeder::class
         ]);
     }
 }
