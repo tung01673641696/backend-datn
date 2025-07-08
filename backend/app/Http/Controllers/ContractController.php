@@ -341,4 +341,19 @@ class ContractController extends Controller
 
         return response()->json(['rental_contracts' => $result], 200);
     }
+
+    public function renewContract(Request $request, $contractId) {
+        $contract = Contract::find($contractId);
+
+        if (!$contract || $contract->type !== 'rental') {
+            return response()->json(['message' => 'Không tìm thấy hợp đồng thuê'], 404);
+        }
+
+        $contract->start_date = $request->start_date;
+        $contract->end_date = $request->end_date;
+        $contract->status = 'signed';
+        $contract->save();
+
+        return response()->json(['message' => 'Gia hạn hợp đồng thành công', 'contract' => $contract], 200);
+    }
 }

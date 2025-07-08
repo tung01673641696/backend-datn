@@ -102,6 +102,7 @@ Route::prefix('/contract')->group(function() {
     Route::get('manager-contract/landlord-get-all-contract/landlord/{landlordId}', [ContractController::class, 'landlordGetAllContract']);
     Route::get('/rental-contract-detail/room/{roomId}', [ContractController::class, 'getRentalContractDetail']);
 
+    Route::put('/renew/{contractId}', [ContractController::class, 'renewContract']);
 });
 
 Route::prefix('/bill')->group(function() {

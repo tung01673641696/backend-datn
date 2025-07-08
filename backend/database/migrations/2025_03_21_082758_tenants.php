@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('room_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('set null');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->softDeletes();
         });
     }
